@@ -188,26 +188,26 @@ public class Boxes {
      *
      * The number 14 in binary is 1110, which I reverse as the list is generated simply to make the code easier to read.
      *
-     *      [8][4][2][1]          Binary                Try to close boxes 4, 3 and 2 on a dice roll of 9 to check for game
-     *         [4][3][2][1]        Decimal (boxes)        over state. Of course all possible permutations for how to close
-     *         1  1  1  0                                boxes that equal 9 are stored at the list location, not just this one
+     *      [8][4][2][1]        Binary                Try to close boxes 4, 3 and 2 on a dice roll of 9 to check for game
+     *      [4][3][2][1]        Decimal (boxes)       over state. Of course all possible permutations for how to close
+     *       1  1  1  0                               boxes that equal 9 are stored at the list location, not just this one
      *
      *
-     * Resulting list of list that we generate once at runtime, but check through corresponding dice roll per turn.
+     * Resulting list of list that we generate once at runtime, but check through corresponding dice roll per turn:
      *
-     *   Element    Dice roll        Inner list
-     *
-     *        0             2:          [2]
-     *         1            3:          [21, 3]
-     *         2            4:             [31, 4]
-     *         3            5:              [32, 41, 5]
-     *         4            6:          [321, 42, 51, 6]
-     *         5            7:          [421, 43, 52, 61, 7]
-     *         6            8:          [431, 521, 53, 62, 71, 8]
-     *         7            9:          [432, 531, 54, 621, 63, 72, 81, 9]
-     *         8            10:         [4321, 532, 541, 631, 64, 721, 73, 82, 91]
-     *         9            11:         [5321, 542, 632, 641, 65, 731, 74, 821, 83, 92]
-     *         10            12:         [5421, 543, 6321, 642, 651, 732, 741, 75, 831, 84, 921, 93]
+     *      Element   |  Dice roll  |  Inner list of closure possibilities.
+     *                |             |
+     *         0      |      2      |      [2]
+     *         1      |      3      |      [21, 3]
+     *         2      |      4      |      [31, 4]
+     *         3      |      5      |      [32, 41, 5]
+     *         4      |      6      |      [321, 42, 51, 6]
+     *         5      |      7      |      [421, 43, 52, 61, 7]
+     *         6      |      8      |      [431, 521, 53, 62, 71, 8]
+     *         7      |      9      |      [432, 531, 54, 621, 63, 72, 81, 9]
+     *         8      |     10      |      [4321, 532, 541, 631, 64, 721, 73, 82, 91]
+     *         9      |     11      |      [5321, 542, 632, 641, 65, 731, 74, 821, 83, 92]
+     *        10      |     12      |      [5421, 543, 6321, 642, 651, 732, 741, 75, 831, 84, 921, 93]
      */
     public void getClosurePossibilities() {
                 

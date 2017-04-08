@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 if [ ! -f "./commitNo" ] ; then
-  var=0
+  # Typically by the time we've commit through this script it's commit no2. 
+  var=1
 else
   var=`cat ./commitNo`
 fi
