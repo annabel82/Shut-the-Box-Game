@@ -1,5 +1,8 @@
 /**
- * This class
+ * This class manages the basic configuration of our game, such as throwing dice and
+ * getting the total, setting up a String for our game board's message, handling box
+ * state, setting up a new game, calculating if the current turn or current game is
+ * over and returning the player's final score.
  *
  * Date: 3rd April 2017
  * @author: Anna Thomas - s4927945
