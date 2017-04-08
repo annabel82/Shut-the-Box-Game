@@ -17,10 +17,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Boxes {
-	
-	private boolean[]          boxes;
-	private boolean[]          backup;								                    // Built-in backup boxes we can save to and restore from.
-	private List<List<String>> closurePossibilities;
+    
+    private boolean[]          boxes;
+    private boolean[]          backup;                                                  // Built-in backup boxes we can save to and restore from.
+    private List<List<String>> closurePossibilities;
 
 
 
@@ -43,10 +43,10 @@ public class Boxes {
      * Creates a backup of our current box state. Typically occurs after a successful
      * turn.
      */
-	public void backup() {
-		
-		backup = boxes.clone();
-	}
+    public void backup() {
+        
+        backup = boxes.clone();
+    }
 
 
 
@@ -56,9 +56,9 @@ public class Boxes {
      * a failed turn.
      */
     public void restore() {
-		
-		boxes = backup.clone();
-	}
+        
+        boxes = backup.clone();
+    }
 
 
 
@@ -68,10 +68,10 @@ public class Boxes {
      * beginning of each individual game.
      */
     public void setAllBoxesOpen() {
-		
-		Arrays.fill(boxes, true); 						        						// Set all boxes open, including our backup copy as
-		Arrays.fill(backup, true);								        				// this is only invoked at the start of a new game.
-	}
+        
+        Arrays.fill(boxes, true);                                                       // Set all boxes open, including our backup copy as
+        Arrays.fill(backup, true);                                                      // this is only invoked at the start of a new game.
+    }
 
 
 
@@ -81,10 +81,10 @@ public class Boxes {
      *
      * @param boxToClose The box the user wishes to close.
      */
-    public void setBoxClosed(int boxToClose) {								            // Passed box number is 1 digit higher than array element
+    public void setBoxClosed(int boxToClose) {                                          // Passed box number is 1 digit higher than array element
 
-        boxes[boxToClose - 1] = false;										            // Close the box
-	}
+        boxes[boxToClose - 1] = false;                                                  // Close the box
+    }
 
 
 
@@ -98,8 +98,8 @@ public class Boxes {
      */
     public boolean getBoxState(int boxNumber) {
 
-		return boxes[boxNumber];
-	}
+        return boxes[boxNumber];
+    }
 
 
 
@@ -112,9 +112,9 @@ public class Boxes {
      * @return Returns the size of the boxes array.
      */
     public int getLength() {
-		
-		return boxes.length;
-	}
+        
+        return boxes.length;
+    }
 
 
 
@@ -132,25 +132,25 @@ public class Boxes {
      * @param diceTotal The total of the dice rolled and the closure possibilities location to check.
      * @return True or false based on if the game is over.
      */
-    public boolean getIsGameOver (int diceTotal) {									    // Returns true of it's game over.
+    public boolean getIsGameOver (int diceTotal) {                                      // Returns true of it's game over.
 
-		int possFailCount = 0;
-																			    		// Iterate through the list of possible combinations that
-		for (String poss: closurePossibilities.get(diceTotal - 2)) {			    	// pertains to current dice total.
+        int possFailCount = 0;
+                                                                                        // Iterate through the list of possible combinations that
+        for (String poss: closurePossibilities.get(diceTotal - 2)) {                    // pertains to current dice total.
 
-			boolean possFail = false;											        // Reset whether or not this box close possibility has failed.
-			
-			for (int i = 0; i < poss.length() && !possFail; i++ ) {			    		// Iterate through each char unless a box we try is already closed.
+            boolean possFail = false;                                                   // Reset whether or not this box close possibility has failed.
+            
+            for (int i = 0; i < poss.length() && !possFail; i++ ) {                     // Iterate through each char unless a box we try is already closed.
 
-				if (!boxes[Character.getNumericValue(poss.charAt(i)) - 1]) {	    	// If the box we're checking is already false AKA closed.
-					
-					possFail = true;									    			// Exit this possibility loop check
-					possFailCount++;					    							// and increment our failure counter.
-				}
-			}
-		}
-		return (closurePossibilities.get(diceTotal - 2).size()) == possFailCount;	    // If the amount of closure possibilities at the element which pertains to the dice
-	}																			    	// roll total equals the number of closure possibilities then it must be game over.
+                if (!boxes[Character.getNumericValue(poss.charAt(i)) - 1]) {            // If the box we're checking is already false AKA closed.
+                    
+                    possFail = true;                                                    // Exit this possibility loop check
+                    possFailCount++;                                                    // and increment our failure counter.
+                }
+            }
+        }
+        return (closurePossibilities.get(diceTotal - 2).size()) == possFailCount;       // If the amount of closure possibilities at the element which pertains to the dice
+    }                                                                                   // roll total equals the number of closure possibilities then it must be game over.
 
 
 
@@ -161,19 +161,19 @@ public class Boxes {
      *
      * @return the final score as an int at the end of each game.
      */
-	public int getScore() {
-	
-		int finalScore = 0;
-	
-		for (int i = 0; i < boxes.length; i++) {								        // Iterate through our boxes array.
-		
-			if (boxes[i]) {
-				
-				finalScore += i + 1;							        				// Calculating our final score (the sum of all open boxes).
-			}
-		}
-		return finalScore;
-	}
+    public int getScore() {
+    
+        int finalScore = 0;
+    
+        for (int i = 0; i < boxes.length; i++) {                                        // Iterate through our boxes array.
+        
+            if (boxes[i]) {
+                
+                finalScore += i + 1;                                                    // Calculating our final score (the sum of all open boxes).
+            }
+        }
+        return finalScore;
+    }
 
 
 
@@ -182,62 +182,62 @@ public class Boxes {
      * Calculates all possible box closure permutations for 9 boxes numbered 1-9 when the sum of each box closed equals
      * 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 and 12.
      *
-	 * Iterate through numbers 2-260 and use their binary strings as combinations for potential open/close box states. The
-	 * results are calculated once at runtime and stored in a list of lists where one inner list contains a dice roll's
-	 * possible box closures. A given dice rolls corresponding inner list is queried per turn to determine game over state.
-	 *
-	 * The number 14 in binary is 1110, which I reverse as the list is generated simply to make the code easier to read.
-	 *
-	 *      [8][4][2][1]  		Binary				Try to close boxes 4, 3 and 2 on a dice roll of 9 to check for game
-	 * 		[4][3][2][1]		Decimal (boxes)		over state. Of course all possible permutations for how to close
-	 *	     1  1  1  0								boxes that equal 9 are stored at the list location, not just this one
-	 *
-	 *
-	 * Resulting list of list that we generate once at runtime, but check through corresponding dice roll per turn.
-	 *
-	 *   Element    Dice roll		Inner list
-	 *
-	 *		0 			2:  		[2]
-	 * 		1			3:  		[21, 3]
-	 * 		2			4: 			[31, 4]
-	 * 		3			5: 	 		[32, 41, 5]
-	 * 		4			6:  		[321, 42, 51, 6]
-	 * 		5			7:  		[421, 43, 52, 61, 7]
-	 * 		6			8:  		[431, 521, 53, 62, 71, 8]
-	 * 		7			9:  		[432, 531, 54, 621, 63, 72, 81, 9]
-	 * 		8			10: 		[4321, 532, 541, 631, 64, 721, 73, 82, 91]
-	 * 		9			11: 		[5321, 542, 632, 641, 65, 731, 74, 821, 83, 92]
-	 * 		10			12: 		[5421, 543, 6321, 642, 651, 732, 741, 75, 831, 84, 921, 93]
-	 */
-	public void getClosurePossibilities() {
-				
-		for (int i = 1; i <= 11; i++) {
-			
-			closurePossibilities.add(new ArrayList<>());		        				// Instantiate 11 inner Lists for dice throws 2 to 12
-		}
-		
-		for (int i = 2; i <= 260; i++ ) {								        		// Start at 2 because it's 10 in binary,
-						
-			if (Integer.bitCount(i) < 5) {	 					        				// Max 4 boxes closed at once
-				
-				String binStr = Integer.toBinaryString(i);
-				String decStr = "";						    							// Binary strings are in reverse for our needs, we read
-				int boxNumTotal = 0;						    						// the binary string left to right with the box number
-				int boxNum = binStr.length();					    					// decreasing each time we move to the right
-				
-				for (int j = 0; j < binStr.length(); j++ ) {		        			// Iterate through each char from left to right
-			
-					if (binStr.charAt(j) == '1') {				        				// If the current char in our string is 1 (AKA close)
-						boxNumTotal += boxNum;							        		// Add corresponding box number to our total
-						decStr += boxNum;								        		// And build our box closure combo string
-					}
-					boxNum--;
-				}
-				
-				if (boxNumTotal <= 12) {
-					closurePossibilities.get(boxNumTotal - 2).add(decStr); 		        // Add that binary string to the corresponding inner list
-				}
-			}
-		}
-	}
+     * Iterate through numbers 2-260 and use their binary strings as combinations for potential open/close box states. The
+     * results are calculated once at runtime and stored in a list of lists where one inner list contains a dice roll's
+     * possible box closures. A given dice rolls corresponding inner list is queried per turn to determine game over state.
+     *
+     * The number 14 in binary is 1110, which I reverse as the list is generated simply to make the code easier to read.
+     *
+     *      [8][4][2][1]          Binary                Try to close boxes 4, 3 and 2 on a dice roll of 9 to check for game
+     *         [4][3][2][1]        Decimal (boxes)        over state. Of course all possible permutations for how to close
+     *         1  1  1  0                                boxes that equal 9 are stored at the list location, not just this one
+     *
+     *
+     * Resulting list of list that we generate once at runtime, but check through corresponding dice roll per turn.
+     *
+     *   Element    Dice roll        Inner list
+     *
+     *        0             2:          [2]
+     *         1            3:          [21, 3]
+     *         2            4:             [31, 4]
+     *         3            5:              [32, 41, 5]
+     *         4            6:          [321, 42, 51, 6]
+     *         5            7:          [421, 43, 52, 61, 7]
+     *         6            8:          [431, 521, 53, 62, 71, 8]
+     *         7            9:          [432, 531, 54, 621, 63, 72, 81, 9]
+     *         8            10:         [4321, 532, 541, 631, 64, 721, 73, 82, 91]
+     *         9            11:         [5321, 542, 632, 641, 65, 731, 74, 821, 83, 92]
+     *         10            12:         [5421, 543, 6321, 642, 651, 732, 741, 75, 831, 84, 921, 93]
+     */
+    public void getClosurePossibilities() {
+                
+        for (int i = 1; i <= 11; i++) {
+            
+            closurePossibilities.add(new ArrayList<>());                                // Instantiate 11 inner Lists for dice throws 2 to 12
+        }
+        
+        for (int i = 2; i <= 260; i++ ) {                                               // Start at 2 because it's 10 in binary,
+                        
+            if (Integer.bitCount(i) < 5) {                                              // Max 4 boxes closed at once
+                
+                String binStr = Integer.toBinaryString(i);
+                String decStr = "";                                                     // Binary strings are in reverse for our needs, we read
+                int boxNumTotal = 0;                                                    // the binary string left to right with the box number
+                int boxNum = binStr.length();                                           // decreasing each time we move to the right
+                
+                for (int j = 0; j < binStr.length(); j++ ) {                            // Iterate through each char from left to right
+            
+                    if (binStr.charAt(j) == '1') {                                      // If the current char in our string is 1 (AKA close)
+                        boxNumTotal += boxNum;                                          // Add corresponding box number to our total
+                        decStr += boxNum;                                               // And build our box closure combo string
+                    }
+                    boxNum--;
+                }
+                
+                if (boxNumTotal <= 12) {
+                    closurePossibilities.get(boxNumTotal - 2).add(decStr);              // Add that binary string to the corresponding inner list
+                }
+            }
+        }
+    }
 }

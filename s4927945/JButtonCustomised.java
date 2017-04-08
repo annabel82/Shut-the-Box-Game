@@ -27,10 +27,10 @@ public class JButtonCustomised extends JButton {
      *
      * @param   boxTxt          The font to us for the built-in button label.
      * @param   btnTxtColour    The colour to use for the build-in button label.
-     * @param  	label			String to appear on the button
-     * @param 	file			Default image to apply to the button
-     * @param 	pressedFile		Image to show when the button is pressed
-     * @param 	disabledFile	Image to show when the button is disabled
+     * @param   label           String to appear on the button
+     * @param   file            Default image to apply to the button
+     * @param   pressedFile     Image to show when the button is pressed
+     * @param   disabledFile    Image to show when the button is disabled
      */
     public JButtonCustomised(Font boxTxt, Color btnTxtColour, String label, String file, String pressedFile, String disabledFile) {
 
@@ -101,7 +101,7 @@ public class JButtonCustomised extends JButton {
      * which uses an additional JLabel to position the box number more precisely.
      *
      * @param layout       Layout manager to use.
-     * @param file		   Default image to apply to the button
+     * @param file         Default image to apply to the button
      * @param pressedFile  Image to show when the button is pressed
      * @param disabledFile Image to show when the button is disabled
      */

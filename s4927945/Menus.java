@@ -94,7 +94,7 @@ public class Menus extends JFrame {
         containerPanel.setOpaque(false);
         add(containerPanel, BorderLayout.CENTER);
 
-        glass = new JPanel(new GridLayout(0, 1));                                // Glass pane stops boxes being closed during 400ms timer delay.
+        glass = new JPanel(new GridLayout(0, 1));                                       // Glass pane stops boxes being closed during 400ms timer delay.
         glass.setOpaque(false);
         setGlassPane(glass);
 
@@ -137,17 +137,17 @@ public class Menus extends JFrame {
         mainMenuPanel.setPreferredSize(new Dimension(700, 420));
         mainMenuContainerPanel.add(mainMenuPanel);
 
-        JPanelBg leftMenuPanel = new JPanelBg("big-logo.png");						    // I prefer to use my custom JPanelBg than a label, because I can trivially add
+        JPanelBg leftMenuPanel = new JPanelBg("big-logo.png");                          // I prefer to use my custom JPanelBg than a label, because I can trivially add
         leftMenuPanel.setSize(new Dimension(325,420));                                  // elements inside the JPanelBg if required, so more flexible moving forward.
 
         gc.fill = GridBagConstraints.BOTH;                                              // MY NOTES:
-        gc.weightx = 1;															        // Priority when affording this panel's width.
-        gc.weighty = 1;				        											// Priority when affording this panel's height.
-        gc.gridx = 0;						        									// Left most grid.
-        gc.gridy = 0;								        							// Top most grid.
-        gc.gridwidth = 1;									        					// Spans one (adjacent) grid width.
-        gc.gridheight = 4;											        			// Spans 4 (adjacent) grid heights.
-        gc.insets = new Insets(0, 0, 0, 40);		                            		// Margin Top, Left, Bottom, Right. - This is purposefully repeated elsewhere.
+        gc.weightx = 1;                                                                 // Priority when affording this panel's width.
+        gc.weighty = 1;                                                                 // Priority when affording this panel's height.
+        gc.gridx = 0;                                                                   // Left most grid.
+        gc.gridy = 0;                                                                   // Top most grid.
+        gc.gridwidth = 1;                                                               // Spans one (adjacent) grid width.
+        gc.gridheight = 4;                                                              // Spans 4 (adjacent) grid heights.
+        gc.insets = new Insets(0, 0, 0, 40);                                            // Margin Top, Left, Bottom, Right. - This is purposefully repeated elsewhere.
         mainMenuPanel.add(leftMenuPanel, gc);
 
         // -----------------------------------------
@@ -169,7 +169,7 @@ public class Menus extends JFrame {
         gc.gridheight = 1;
 
         for (int i = 0; i < 4; i++) {
-                                                       // Font 	   	  Text colour	         Text 		  	    Image           Pressed Image           Disabled image
+                                                       // Font          Text colour           Text             Image           Pressed Image           Disabled image
             mainMenuButtons[i] = new JButtonCustomised(buttonText, buttonTextColour, mainMenuButtonText[i], "wood-btn.png", "wood-btn-pressed.png", "wood-btn-pressed.png");
             mainMenuButtons[i].addActionListener(menuHandlers[i]);
 
@@ -236,7 +236,7 @@ public class Menus extends JFrame {
         gc.weighty = 0.15;                                                              // Ensure the menu doesn't get deformed.
 
         for (int i = 0; i < overlayButtonNames.length; i++) {
-                                                      // Font 	   	  Text colour	         Text 		  	    Image           Pressed Image           Disabled image
+                                                      // Font          Text colour           Text             Image           Pressed Image           Disabled image
             overlayButtons[i] = new JButtonCustomised(buttonText, buttonTextColour, overlayButtonNames[i], "wood-btn.png", "wood-btn-pressed.png", "wood-btn-placeholder.png");
 
             gc.gridy = (i + 1);
@@ -323,7 +323,7 @@ public class Menus extends JFrame {
 
         player1Name.addKeyListener(new NameLengthListener());
 
-                                                    // Font 	 Text colour	  Text 		 Image           Pressed Image           Disabled image
+                                                    // Font    Text colour    Text      Image           Pressed Image           Disabled image
         JButton playButton = new JButtonCustomised(buttonText, buttonTextColour, "Play", "wood-btn.png", "wood-btn-pressed.png", "wood-btn-placeholder.png");
 
         playButton.setActionCommand("1");
@@ -419,7 +419,7 @@ public class Menus extends JFrame {
         NameLengthListener nameLengthListener = new NameLengthListener();
         player1Name.addKeyListener(nameLengthListener);
         player2Name.addKeyListener(nameLengthListener);
-                                                           // Font 	       Text colour	        Text            Image            Pressed Image            Disabled image
+                                                           // Font          Text colour          Text            Image            Pressed Image            Disabled image
         JButton playThreeEachButton = new JButtonCustomised(buttonText, buttonTextColour, "Play Three Each", "wood-btn.png", "wood-btn-pressed.png", "wood-btn-placeholder.png");
         JButton playFiveEachButton = new JButtonCustomised(buttonText, buttonTextColour, "Play Five Each", "wood-btn.png", "wood-btn-pressed.png", "wood-btn-placeholder.png");
 
@@ -541,7 +541,7 @@ public class Menus extends JFrame {
 
         aboutPanel.add(aboutTitle);
         aboutPanel.add(about);
-                                                    // Font 	   Text colour	   Text         Image            Pressed Image        Disabled image
+                                                    // Font      Text colour     Text         Image            Pressed Image        Disabled image
         JButton closeButton = new JButtonCustomised(buttonText, buttonTextColour, "Close", "close-btn.png", "close-btn-pressed.png", "close-btn.png");
         closeButton.addActionListener(new CloseAboutBtnHandler());
         closeButton.setBounds(120, 320, 221, 82);
@@ -605,7 +605,7 @@ public class Menus extends JFrame {
         howToPlayPanel.add(howToPlayTitle);
         howToPlayPanel.add(howToPlay);
 
-                                                    // Font 	   Text colour	    Text       Image            Pressed Image        Disabled image
+                                                    // Font      Text colour      Text       Image            Pressed Image        Disabled image
         JButton closeButton = new JButtonCustomised(buttonText, buttonTextColour, "Close", "close-btn.png", "close-btn-pressed.png", "close-btn.png");
         closeButton.addActionListener(new CloseHowToPlayBtnHandler());
         closeButton.setBounds(120, 470, 221, 82);
@@ -675,7 +675,7 @@ public class Menus extends JFrame {
         gc.weighty = 0.15;
 
         for (int i = 0; i < overlayButtonNames.length; i++) {
-                                                      // Font 	     Text colour	        Text                Image           Pressed Image            Disabled image
+                                                      // Font        Text colour          Text                Image           Pressed Image            Disabled image
             overlayButtons[i] = new JButtonCustomised(buttonText, buttonTextColour, overlayButtonNames[i], "wood-btn.png", "wood-btn-pressed.png", "paper-text-btn.png");
 
             gc.gridy = (i + 1);
@@ -767,7 +767,7 @@ public class Menus extends JFrame {
 
         // -----------------------------------------
 
-                                                        // Font 	   Text colour	   Text         Image                Pressed Image                  Disabled image
+                                                        // Font      Text colour     Text         Image                Pressed Image                  Disabled image
         JButton confirmYesButton = new JButtonCustomised(buttonText, buttonTextColour, "Yes","wood-btn-small.png", "wood-btn-small-pressed.png", "wood-btn-small-pressed.png");
         JButton confirmNoButton = new JButtonCustomised(buttonText, buttonTextColour, "No", "wood-btn-small.png", "wood-btn-small-pressed.png", "wood-btn-small-pressed.png");
 

@@ -31,10 +31,10 @@ public class GameBoard {
     private JButton[]          boxButton;
     private JLabel[]           boxLabel;
     private GridBagConstraints gc;
-    private JLabel 	           player1NameLabel, player2NameLabel, messageLabel, roundOverLabel;
+    private JLabel                player1NameLabel, player2NameLabel, messageLabel, roundOverLabel;
     private JLabelRotated      dieLabel1, dieLabel2;
     private String[]           playerNames;
-    private int 	           numberOfScores, numberOfRoundsRemaining, chosenBoxNo, player1Total, player2Total;
+    private int                numberOfScores, numberOfRoundsRemaining, chosenBoxNo, player1Total, player2Total;
     private boolean            gameIsInProgress, hasClosedBox, isTwoPlayer, wasTwoPlayerGame, wasPlayerOnesTurn;
 
 
@@ -168,7 +168,7 @@ public class GameBoard {
         twoButtonPanel.setLayout(new GridLayout(2, 1));                                 // two high and one wide.
         twoButtonPanel.setOpaque(false);
         boxesPanel.add(twoButtonPanel);
-                                                                // Font 	     Text colour	        Text                Image           Pressed Image            Disabled image
+                                                                // Font          Text colour            Text                Image           Pressed Image            Disabled image
         JButtonCustomised menuButton = new JButtonCustomised(yellowButtonTxt, yellowButtonTxtColor, "<b>MENU</b>", "yellow-btn.png", "yellow-btn-pressed.png", "yellow-btn-pressed.png");
                          resetButton = new JButtonCustomised(yellowButtonTxt, yellowButtonTxtColor, "<b>RESET</b>", "yellow-btn.png", "yellow-btn-pressed.png", "yellow-btn-pressed.png");
 
@@ -247,10 +247,10 @@ public class GameBoard {
         boxLabel = new JLabel[game.getBoxesLength()];                                   // Array of JButtons the same size as the number of boxes we have.
         BoxButtonHandler boxButtonHandler = new BoxButtonHandler();
 
-        for (int i = 0; i < game.getBoxesLength(); i++) {				    			// Extensibility.
+        for (int i = 0; i < game.getBoxesLength(); i++) {                               // Extensibility.
 
             boxNo = String.valueOf(i + 1);
-                                             // Layout	   Image        Pressed Image     Disabled image
+                                             // Layout       Image        Pressed Image     Disabled image
             boxButton[i] = new JButtonCustomised(null, "box-open.png", "box-closed.png", "box-closed.png");
 
             boxLabel[i] = new JLabel();
@@ -337,7 +337,8 @@ public class GameBoard {
      * This method allows s4927945.Menus#setMenuVisible to set the gamePanel container
      * visible or invisible
      *
-     * @param choice True or false depending on whether or not we should display the gamePanel container.
+     * @param choice True or false depending on whether or not we should display the
+     *               gamePanel container.
      */
     public void setGameVisible(boolean choice) {
 
@@ -639,15 +640,15 @@ public class GameBoard {
             menus.getGlassPane().setVisible(true);
 
             JButton chosenBox = (JButton) e.getSource();
-            chosenBoxNo = Integer.parseInt(e.getActionCommand());	    				// Box no 1-9
+            chosenBoxNo = Integer.parseInt(e.getActionCommand());                       // Box no 1-9
 
-            boxLabel[chosenBoxNo - 1].setText("");							   			// We've made a choice so ensure reset can be
-            chosenBox.setEnabled(false);	        	                           		// pressed. Then Disable chosen box and remove
-            resetButton.setEnabled(true);  										    	// it's label, then wait 400ms using the timer below
+            boxLabel[chosenBoxNo - 1].setText("");                                      // We've made a choice so ensure reset can be
+            chosenBox.setEnabled(false);                                                // pressed. Then Disable chosen box and remove
+            resetButton.setEnabled(true);                                               // it's label, then wait 400ms using the timer below
                                                                                         // before continuing on to BoxButtonAfterTimerHandler.
             Timer timer = new Timer(400, new BoxButtonAfterTimerHandler());
-            timer.setRepeats(false);								    				// Timer is here so that if an invalid box is chosen
-            timer.start();												    			// there is a pause before it automatically resets.
+            timer.setRepeats(false);                                                    // Timer is here so that if an invalid box is chosen
+            timer.start();                                                              // there is a pause before it automatically resets.
         }                                                                               // Otherwise it seems too instant and can be confusing.
     }
 
@@ -677,20 +678,20 @@ public class GameBoard {
                                                                                         // After a delay we submit our choice.
             game.setBoxChoice(chosenBoxNo);
                                                                                         // Check to see if our choice means the turn is over.
-            if (game.getIsTheTurnOver(false)) {			    			                // False because we're not forcing the condition.
+            if (game.getIsTheTurnOver(false)) {                                         // False because we're not forcing the condition.
 
-                if (!game.getTurnSuccess()) {				    		                // If it's over without success re-paint our boxes
+                if (!game.getTurnSuccess()) {                                           // If it's over without success re-paint our boxes
                                                                                         // after the boxes.restore triggered by unsuccessful
-                    setPreviousGuiBoxesState();						    		        // turn.
+                    setPreviousGuiBoxesState();                                         // turn.
 
                 } else {
 
-                    setDiceDisplay(game.getDiceThrow());	    		                // If this turn successfully closed boxes we roll
-                    resetButton.setEnabled(false);					    			    // again and disable the reset button until we get
-                    hasClosedBox = true;  									            // another choice.
+                    setDiceDisplay(game.getDiceThrow());                                // If this turn successfully closed boxes we roll
+                    resetButton.setEnabled(false);                                      // again and disable the reset button until we get
+                    hasClosedBox = true;                                                // another choice.
                 }
 
-                if (game.getIsGameOver()) {	    						                // And having rolled the dice, we test for a game over
+                if (game.getIsGameOver()) {                                             // And having rolled the dice, we test for a game over
 
                     setGameOverCondition();                                             // If it's game over handle it whilst leaving the
                                                                                         // glass pane enabled.

@@ -12,12 +12,12 @@ package s4927945;
 
 public class Game {
 
-	private Die     die1, die2;
-	private Boxes   boxes;                                                              // Single box object housing 9 boxes, because
+    private Die     die1, die2;
+    private Boxes   boxes;                                                              // Single box object housing 9 boxes, because
     private String  message;                                                            // each box has a relationship with the others.
-	private boolean isTurnSuccessful;
-	private int     boxesChosenThisTurn, closedBoxSumThisTurn;
-	private int[]   dice;
+    private boolean isTurnSuccessful;
+    private int     boxesChosenThisTurn, closedBoxSumThisTurn;
+    private int[]   dice;
 
 
 
@@ -26,16 +26,16 @@ public class Game {
      * Instantiates our dice and the boxes objects. Gets the closure possibilities and
      * sets up all the conditions required to start a new game.
      */
-	public Game () {
+    public Game () {
 
         die1 = new Die();
         die2 = new Die();
         boxes = new Boxes();
         dice = new int[2];
 
-		boxes.getClosurePossibilities();		            							// Calculate box closure possibilities just
-		setUpNewGame();										            				// the once.
-	}
+        boxes.getClosurePossibilities();                                                // Calculate box closure possibilities just
+        setUpNewGame();                                                                 // the once.
+    }
 
 
 
@@ -45,10 +45,10 @@ public class Game {
      *
      * @return The total of both dice as an integer.
      */
-	private int getDiceTotal() {
+    private int getDiceTotal() {
 
-		return die1.getRoll() + die2.getRoll();
-	}
+        return die1.getRoll() + die2.getRoll();
+    }
 
 
 
@@ -62,21 +62,21 @@ public class Game {
      * @return An int array containing both dice rolls.
      */
     public int[] getDiceThrow() {
-		
-		int[] oldDice = dice.clone();
-													    			        			// Ensure at least one dice changes, due to
-		while (oldDice[0] == die1.getRoll()) {          								// identical successive rolls causing a little
-													            						// confusion, because it left little to indicate
-			die1.roll(6);  										            			// to the player that a new turn had begun. I
-		}																	            // felt this was the most elegant solution.
+        
+        int[] oldDice = dice.clone();
+                                                                                        // Ensure at least one dice changes, due to
+        while (oldDice[0] == die1.getRoll()) {                                          // identical successive rolls causing a little
+                                                                                        // confusion, because it left little to indicate
+            die1.roll(6);                                                               // to the player that a new turn had begun. I
+        }                                                                               // felt this was the most elegant solution.
 
-		die2.roll(6);
-		
-		dice[0] = die1.getRoll();
-		dice[1] = die2.getRoll();
+        die2.roll(6);
+        
+        dice[0] = die1.getRoll();
+        dice[1] = die2.getRoll();
 
-		return dice;
-	}
+        return dice;
+    }
 
 
 
@@ -89,9 +89,9 @@ public class Game {
      * @return Returns the size of the boxes array.
      */
     public int getBoxesLength() {
-		
-		return boxes.getLength();
-	}
+        
+        return boxes.getLength();
+    }
 
 
 
@@ -100,9 +100,9 @@ public class Game {
      * Sets the message to be used in the game board's GUI after dice were rolled.
      */
     public void setDiceThrownMessage() {
-	
-		message = "You rolled " + die1.getRoll() + " and " + die2.getRoll() + ", totalling " + getDiceTotal() + ".";
-	}
+    
+        message = "You rolled " + die1.getRoll() + " and " + die2.getRoll() + ", totalling " + getDiceTotal() + ".";
+    }
 
 
 
@@ -117,13 +117,13 @@ public class Game {
      *
      * @param choice receives box choice to be closed as a raw box number of 1-9
      */
-    public void setBoxChoice(int choice) {									            // Receives 1-9.
+    public void setBoxChoice(int choice) {                                              // Receives 1-9.
 
-		closedBoxSumThisTurn += choice;	            									// Add choice to the sum of choices this turn.
-		boxesChosenThisTurn++;						            						// Increment our choice counter.
-		boxes.setBoxClosed(choice);								            			// Passes on as-is.
-		
-	}
+        closedBoxSumThisTurn += choice;                                                 // Add choice to the sum of choices this turn.
+        boxesChosenThisTurn++;                                                          // Increment our choice counter.
+        boxes.setBoxClosed(choice);                                                     // Passes on as-is.
+        
+    }
 
 
 
@@ -137,10 +137,10 @@ public class Game {
      *                  exactly matches the box number in the Gui
      * @return          True or false based on if the box is open or closed respectively.
      */
-    public boolean getBoxState (int boxNumber) {	                    				// Passes a boxes current state back to the
-																                    	// caller.
-		return boxes.getBoxState(boxNumber);
-	}
+    public boolean getBoxState (int boxNumber) {                                        // Passes a boxes current state back to the
+                                                                                        // caller.
+        return boxes.getBoxState(boxNumber);
+    }
 
 
 
@@ -151,9 +151,9 @@ public class Game {
      * @return the value of the current String variable "message:.
      */
     public String getMessage() {
-		
-		return message;
-	}
+        
+        return message;
+    }
 
 
 
@@ -164,9 +164,9 @@ public class Game {
      * @return True or false based on if the turn is successful or not. True if it is; false if not.
      */
     public boolean getTurnSuccess() {
-		
-		return isTurnSuccessful;
-	}
+        
+        return isTurnSuccessful;
+    }
 
 
 
@@ -196,45 +196,45 @@ public class Game {
      * @param turnWasReset Whether or not the turn is forced to be over.
      * @return             True if the _TURN_ is over or false if it is not.
      */
-    public boolean getIsTheTurnOver(boolean turnWasReset) {								// Returns true if turn is over.
+    public boolean getIsTheTurnOver(boolean turnWasReset) {                             // Returns true if turn is over.
 
-		if (closedBoxSumThisTurn == getDiceTotal()) {
-			
-			isTurnSuccessful = true;													// If we succeeded, set our success flag,
-			closedBoxSumThisTurn = 0;													// reset the sum of our chosen boxes
-			boxesChosenThisTurn = 0;													// plus the number of boxes chosen
-			boxes.backup();																// and backup our box choices thus far.
-			return true;	
-		
-		} else if (turnWasReset) {														// If we chose to reset we set the
-			
-			message = "Box choices reset, the dice roll total is " + getDiceTotal();	// message accordingly and skip to the end
+        if (closedBoxSumThisTurn == getDiceTotal()) {
+            
+            isTurnSuccessful = true;                                                    // If we succeeded, set our success flag,
+            closedBoxSumThisTurn = 0;                                                   // reset the sum of our chosen boxes
+            boxesChosenThisTurn = 0;                                                    // plus the number of boxes chosen
+            boxes.backup();                                                             // and backup our box choices thus far.
+            return true;    
+        
+        } else if (turnWasReset) {                                                      // If we chose to reset we set the
+            
+            message = "Box choices reset, the dice roll total is " + getDiceTotal();    // message accordingly and skip to the end
 
-		} else if (boxesChosenThisTurn > 3) {
-			
-			message = "Failed to match the total dice roll of " + getDiceTotal();		// If we've made 4 choices and not reached
+        } else if (boxesChosenThisTurn > 3) {
+            
+            message = "Failed to match the total dice roll of " + getDiceTotal();       // If we've made 4 choices and not reached
                                                                                         // our dice total set message and skip to end.
-		} else if (closedBoxSumThisTurn > getDiceTotal() && boxesChosenThisTurn == 1) {				
-			
-			message = "Box " + closedBoxSumThisTurn + " exceeds the combined dice "
-					+ "roll of " + getDiceTotal() + ", please try again";				// If our choices have exceeded our dice
+        } else if (closedBoxSumThisTurn > getDiceTotal() && boxesChosenThisTurn == 1) {                
+            
+            message = "Box " + closedBoxSumThisTurn + " exceeds the combined dice "
+                    + "roll of " + getDiceTotal() + ", please try again";               // If our choices have exceeded our dice
                                                                                         // total, set an appropriate message and skip
-		} else if (closedBoxSumThisTurn > getDiceTotal()) {								// to the end.
-			
-			message = "Box choices totalling " + closedBoxSumThisTurn + " exceed the "
-					+ "combined dice roll of " + getDiceTotal() + ", please try again";
-		} else {																		// If no success or failure conditions are
+        } else if (closedBoxSumThisTurn > getDiceTotal()) {                             // to the end.
+            
+            message = "Box choices totalling " + closedBoxSumThisTurn + " exceed the "
+                    + "combined dice roll of " + getDiceTotal() + ", please try again";
+        } else {                                                                        // If no success or failure conditions are
                                                                                         // met the turn hasn't ended so return false
-			return false;																// to roll the dice again.
-		}
-		
-		isTurnSuccessful = false;														// If we haven't broken out of the loop by
-		closedBoxSumThisTurn = 0;														// now we've reached some kind of failure
-		boxesChosenThisTurn = 0;														// condition, so reset the boxes closed sum
-		boxes.restore();																// to zero, restore our boxes to how they
+            return false;                                                               // to roll the dice again.
+        }
+        
+        isTurnSuccessful = false;                                                       // If we haven't broken out of the loop by
+        closedBoxSumThisTurn = 0;                                                       // now we've reached some kind of failure
+        boxesChosenThisTurn = 0;                                                        // condition, so reset the boxes closed sum
+        boxes.restore();                                                                // to zero, restore our boxes to how they
                                                                                         // were when the turn started and return
-		return true;																	// true because the turn has ended.
-	}
+        return true;                                                                    // true because the turn has ended.
+    }
 
 
 
@@ -244,9 +244,9 @@ public class Game {
      *
      * @return True if the game is over or false if it is not.
      */
-    public boolean getIsGameOver() {											    	// Returns true of game is over.
-		
-		if (boxes.getIsGameOver(getDiceTotal())) {
+    public boolean getIsGameOver() {                                                    // Returns true of game is over.
+        
+        if (boxes.getIsGameOver(getDiceTotal())) {
 
             if (boxes.getScore() == 0) {
 
@@ -263,9 +263,9 @@ public class Game {
 
         } else {
 
-			return false;																// In else block for readability.
-		}
-	}
+            return false;                                                               // In else block for readability.
+        }
+    }
 
 
 
@@ -290,10 +290,10 @@ public class Game {
      */
     public void setUpNewGame() {
 
-		isTurnSuccessful = false;														// flag game is fresh and reset our success
-		closedBoxSumThisTurn = 0;														// state. Then reset both our counters, set
-		boxesChosenThisTurn = 0;														// all boxes to open (which includes the
-		boxes.setAllBoxesOpen();														// backup boxes too).
-		message = "Dice roll is " + getDiceTotal() + ", Good luck!";
-	}
+        isTurnSuccessful = false;                                                       // flag game is fresh and reset our success
+        closedBoxSumThisTurn = 0;                                                       // state. Then reset both our counters, set
+        boxesChosenThisTurn = 0;                                                        // all boxes to open (which includes the
+        boxes.setAllBoxesOpen();                                                        // backup boxes too).
+        message = "Dice roll is " + getDiceTotal() + ", Good luck!";
+    }
 }

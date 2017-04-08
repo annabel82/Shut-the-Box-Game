@@ -21,7 +21,7 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class JPanelBg extends JPanel {
 
-	private BufferedImage bg;
+    private BufferedImage bg;
 
 
 
@@ -87,8 +87,8 @@ public class JPanelBg extends JPanel {
      * @param g Graphics component.
      */
     @Override
-	public void paintComponent(Graphics g) {
-		
-		g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
-	}
+    public void paintComponent(Graphics g) {
+        
+        g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
+    }
 }

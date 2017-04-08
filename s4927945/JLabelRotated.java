@@ -23,12 +23,12 @@ import javax.swing.*;
 public class JLabelRotated extends JLabel {
 
 
-	private Image     bg;
-	private ImageIcon image;
-	private int       degrees;
-	private int       width;
-	private int       height;
-
+    private Image     bg;
+    private ImageIcon image;
+    private int       degrees;
+    private int       width;
+    private int       height;
+    
 
     // ---------------------------------------------------------------------------------
     /**
@@ -37,8 +37,8 @@ public class JLabelRotated extends JLabel {
      * Generates a rotated JLabel with a background image by re-writing the
      * paintComponent swing method
      *
-     * @param  	file		    File name of the image to use
-     * @param 	degrees			Degrees of rotation to apply
+     * @param file    File name of the image to use
+     * @param degrees Degrees of rotation to apply
      */
     public void setIcon (String file, int degrees) {
 
@@ -70,7 +70,7 @@ public class JLabelRotated extends JLabel {
 
         try {
 
-            width = image.getIconWidth() + 20;									    	// Add a little space for rotation
+            width = image.getIconWidth() + 20;                                            // Add a little space for rotation
             height = image.getIconHeight() + 20;
 
         } catch (Exception e) {
@@ -85,8 +85,8 @@ public class JLabelRotated extends JLabel {
 
         this.degrees = degrees;
 
-		setPreferredSize(new Dimension(width, height));
-	}
+        setPreferredSize(new Dimension(width, height));
+    }
 
 
 
@@ -97,20 +97,20 @@ public class JLabelRotated extends JLabel {
      *
      * @param g Graphics component.
      */
-	public void paintComponent (Graphics g) {
+    public void paintComponent (Graphics g) {
 
-		super.paintComponent(g);
+        super.paintComponent(g);
 
-		Graphics2D g2 = (Graphics2D) g;
-		RenderingHints hints = new RenderingHints(null);
+        Graphics2D g2 = (Graphics2D) g;
+        RenderingHints hints = new RenderingHints(null);
 
-		hints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		hints.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-		hints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        hints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        hints.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        hints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
-		g2.setRenderingHints(hints);
-		g2.rotate(Math.toRadians(degrees), width / 2, height / 2);
-		g2.drawImage(bg, 10, 10, this);
-		g2.dispose();
-	}
+        g2.setRenderingHints(hints);
+        g2.rotate(Math.toRadians(degrees), width / 2, height / 2);
+        g2.drawImage(bg, 10, 10, this);
+        g2.dispose();
+    }
 }

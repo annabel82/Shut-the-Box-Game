@@ -6,7 +6,7 @@ Source files are in the s4927945 folder. s4927945 is (or was) my student number 
 
 ---
 
-Wood effect images are modified incanrations of a base psd file courtesy of http://freedesignfile.com and licenced under Creative Commons (Attribution 3.0).
+Wood effect images are modified incarnations of a base psd file courtesy of http://freedesignfile.com and licenced under Creative Commons (Attribution 3.0).
 
 "The Urban Way" Font is courtesy of original creator Vanessa Bays of http://bythebutterfly.com 
 

@@ -13,9 +13,9 @@ package s4927945;
 import java.security.SecureRandom;
 
 public class Die {
-	
-	private int          faceValue;
-	private SecureRandom rand;
+    
+    private int          faceValue;
+    private SecureRandom rand;
 
 
 
@@ -25,7 +25,7 @@ public class Die {
      */
     public Die()  {
 
-	    rand = new SecureRandom();
+        rand = new SecureRandom();
     }
 
 
@@ -39,8 +39,8 @@ public class Die {
      */
     public void roll(int sides){
 
-		faceValue = rand.nextInt(sides) + 1;
-	}
+        faceValue = rand.nextInt(sides) + 1;
+    }
 
 
 
@@ -51,7 +51,7 @@ public class Die {
      * @return Returns the value of the dice since it's last roll.
      */
     public Integer getRoll(){
-		
-		return faceValue;
-	}
+        
+        return faceValue;
+    }
 }
