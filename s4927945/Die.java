@@ -12,8 +12,9 @@ package s4927945;
 
 import java.security.SecureRandom;
 
-public class Die {
-    
+public class Die
+{
+
     private int          faceValue;
     private SecureRandom rand;
 
@@ -23,8 +24,8 @@ public class Die {
     /**
      * Instantiates a new secure random.
      */
-    public Die()  {
-
+    public Die()
+    {
         rand = new SecureRandom();
     }
 
@@ -37,8 +38,8 @@ public class Die {
      * @param sides Uses for extensibility moving forward and allows the die to act as
      *              an N sided die.
      */
-    public void roll(int sides){
-
+    public void roll(int sides)
+    {
         faceValue = rand.nextInt(sides) + 1;
     }
 
@@ -50,8 +51,8 @@ public class Die {
      *
      * @return Returns the value of the dice since it's last roll.
      */
-    public Integer getRoll(){
-        
+    public Integer getRoll()
+    {
         return faceValue;
     }
 }

@@ -21,8 +21,8 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 
-public class GameBoard {
-
+public class GameBoard
+{
     private Menus              menus;
     private Game               game;
     private JPanel             gamePanel, boxesPanel, player1HolderPanel, player2HolderPanel;
@@ -31,7 +31,7 @@ public class GameBoard {
     private JButton[]          boxButton;
     private JLabel[]           boxLabel;
     private GridBagConstraints gc;
-    private JLabel                player1NameLabel, player2NameLabel, messageLabel, roundOverLabel;
+    private JLabel             player1NameLabel, player2NameLabel, messageLabel, roundOverLabel;
     private JLabelRotated      dieLabel1, dieLabel2;
     private String[]           playerNames;
     private int                numberOfScores, numberOfRoundsRemaining, chosenBoxNo, player1Total, player2Total;
@@ -48,17 +48,21 @@ public class GameBoard {
      *
      * @param menus          Allows this class to access functions in s4927945.Menus
      */
-    public GameBoard(Menus menus) {
-
+    public GameBoard(Menus menus)
+    {
         this.menus = menus;
 
         wasPlayerOnesTurn = true;
-        numberOfScores = 1;                                                             // gameIsInProgress determines if "Continue" or "New Game"
-        gameIsInProgress = false;                                                       // button displays on the main menu. hasClosedBox determines
-        hasClosedBox = false;                                                           // if "Are you sure?" menu appears when starting a new game.
-                                                                                        // They're not the same; we do want to see "Continue" during
-        game = new Game();                                                              // a game, but we don't want to see "are you sure?" unless
-                                                                                        // a box has been closed during the game that's underway.
+        numberOfScores = 1;
+
+        // gameIsInProgress determines if "Continue" or "New Game" button displays on the
+        // main menu. hasClosedBox determines if "Are you sure?" menu appears when
+        // starting a new game. They're not the same; we do want to see "Continue" during
+        // a game, but we don't want to see "are you sure?" unless a box has been closed
+        // during the game that's underway
+        gameIsInProgress = false;
+        hasClosedBox = false;
+        game = new Game();
         gc = new GridBagConstraints();
         Font yellowButtonTxt = new Font("Serif", Font.PLAIN, 12);
         Font urban = new Font("The Urban Way", Font.BOLD, 15);
@@ -81,13 +85,12 @@ public class GameBoard {
 
         ImageIcon bg = null;
 
-        try {
-
+        try
+        {
             bg = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("resources/imgs/unified-round-over.png")));
         }
-
-        catch (Exception e){
-
+        catch (Exception e)
+        {
             JOptionPane.showMessageDialog (menus, "File: resources/imgs/unified-round-over.png failed to load:" + e + ".\n" +
                     "You may OK this message and continue at your own risk.",
                 "Error", JOptionPane.ERROR_MESSAGE);
@@ -124,7 +127,9 @@ public class GameBoard {
         gc.gridy = 0;
         gc.gridwidth = 1;
         gc.gridheight = 1;
-        gc.insets = new Insets(50, 0, 0, 0);                                            // Margin Top, Left, Bottom, Right.
+
+        //             Margin Top, L, B, Right
+        gc.insets = new Insets(50, 0, 0, 0);
         scorePanelLeft.add(player1NameLabel, gc);
         scorePanelRight.add(player2NameLabel, gc);
 
@@ -150,8 +155,11 @@ public class GameBoard {
 
         // -----------------------------------------
 
-        boxesPanel = new JPanel();                                                      // Create transparent boxes container one high and nine
-        boxesPanel.setLayout(new GridLayout(1, 9, 15, 0));                              // wide, with 10 pixels horizontally between each box.
+        boxesPanel = new JPanel();
+
+        // Create transparent boxes container one high and nine wide, with 10 pixels horizontally between each box
+        boxesPanel.setLayout(new GridLayout(1, 9, 15, 0));
+
         boxesPanel.setOpaque(false);
 
         gc.weightx = 0;
@@ -164,11 +172,14 @@ public class GameBoard {
 
         // -----------------------------------------
 
-        JPanel twoButtonPanel = new JPanel();                                           // Create transparent sub-container for yellow buttons
-        twoButtonPanel.setLayout(new GridLayout(2, 1));                                 // two high and one wide.
+        JPanel twoButtonPanel = new JPanel();
+
+        // Create transparent sub-container for yellow buttons two high and one wide.
+        twoButtonPanel.setLayout(new GridLayout(2, 1));
+
         twoButtonPanel.setOpaque(false);
         boxesPanel.add(twoButtonPanel);
-                                                                // Font          Text colour            Text                Image           Pressed Image            Disabled image
+        //                                                        Font          Text colour            Text              Image             Pressed Image            Disabled image
         JButtonCustomised menuButton = new JButtonCustomised(yellowButtonTxt, yellowButtonTxtColor, "<b>MENU</b>", "yellow-btn.png", "yellow-btn-pressed.png", "yellow-btn-pressed.png");
                          resetButton = new JButtonCustomised(yellowButtonTxt, yellowButtonTxtColor, "<b>RESET</b>", "yellow-btn.png", "yellow-btn-pressed.png", "yellow-btn-pressed.png");
 
@@ -181,7 +192,8 @@ public class GameBoard {
         twoButtonPanel.add(menuButton);
         twoButtonPanel.add(resetButton);
 
-        setBoxDisplay();                                                                // Calls the method below which creates our boxes
+        // Calls the method below which creates our boxes
+        setBoxDisplay();
 
         // -----------------------------------------
 
@@ -190,17 +202,26 @@ public class GameBoard {
 
         gc.gridy = 1;
         gc.weighty = 1;
-        gc.insets = new Insets(0, 10, 30, 30);                                          // Margin Top, Left, Bottom, Right.
+        //            Margin Top, L,  B,  Right
+        gc.insets = new Insets(0, 10, 30, 30);
         gamePanel.add(throwPanel, gc);
 
-        JPanel dicePanel = new JPanel();                                                // Create invisible container for the 2, absolutely
-        dicePanel.setOpaque(false);                                                     // positioned dice.
-        dicePanel.setLayout(null);
-        throwPanel.add(dicePanel, BorderLayout.CENTER);                                 // Add centrally positioned invisible dice container
+        JPanel dicePanel = new JPanel();
 
+        // Create invisible container for the 2, absolutely positioned dice.
+        dicePanel.setOpaque(false);
+
+        dicePanel.setLayout(null);
+
+        // Add centrally positioned invisible dice container
+        throwPanel.add(dicePanel, BorderLayout.CENTER);
+
+        // Create placeholder dice labels.
         dieLabel1 = new JLabelRotated();
-        dieLabel2 = new JLabelRotated();                                                // Create placeholder dice labels.
-        dieLabel1.setBounds(40, 100, 100, 100);                                         // Set the dice labels locations.
+        dieLabel2 = new JLabelRotated();
+
+        // Set the dice labels locations.
+        dieLabel1.setBounds(40, 100, 100, 100);
         dieLabel2.setBounds(150, 25, 100, 100);
         dicePanel.add(dieLabel1);
         dicePanel.add(dieLabel2);
@@ -215,7 +236,7 @@ public class GameBoard {
         messageLabel.setOpaque(true);
         messageLabel.setFont(urban);
 
-        messageLabel.setBorder(BorderFactory.createCompoundBorder(                      // Trade off between readability and verbosity.
+        messageLabel.setBorder(BorderFactory.createCompoundBorder(
                new MatteBorder(2, 2, 2, 2, new Color(100, 100, 100)),
                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 
@@ -234,23 +255,26 @@ public class GameBoard {
     // ---------------------------------------------------------------------------------
     /**
      * Uses a simple loop to populate the boxesPanel of our GUI with the same number of
-     * graphical buttons our box game uses (9). Each box has an action command equal
-     * to the number of the box it represents (from 1-9).
+     * graphical buttons our box game uses (9). Each box has an action command equal to
+     * the number of the box it represents (from 1-9). Called from createGamePanel and
+     * generates our buttons which serve as the boxes for our game
      */
-    private void setBoxDisplay () {                                                     // Called from createGamePanel and generates our buttons
-        // which serve as the boxes for our game.
+    private void setBoxDisplay ()
+    {
         String boxNo;
         Font boxTxt = new Font("Serif", Font.PLAIN, 40);
         Color boxTxtColour = new Color(0, 0, 0);
 
+        // Arrays of JButtons the same size as the number of boxes we have.
         boxButton = new JButton[game.getBoxesLength()];
-        boxLabel = new JLabel[game.getBoxesLength()];                                   // Array of JButtons the same size as the number of boxes we have.
+        boxLabel = new JLabel[game.getBoxesLength()];
         BoxButtonHandler boxButtonHandler = new BoxButtonHandler();
 
-        for (int i = 0; i < game.getBoxesLength(); i++) {                               // Extensibility.
+        for (int i = 0; i < game.getBoxesLength(); i++)
+        {
 
             boxNo = String.valueOf(i + 1);
-                                             // Layout       Image        Pressed Image     Disabled image
+            //                                  Layout      Image        Pressed Image     Disabled image
             boxButton[i] = new JButtonCustomised(null, "box-open.png", "box-closed.png", "box-closed.png");
 
             boxLabel[i] = new JLabel();
@@ -278,26 +302,31 @@ public class GameBoard {
      * clears the scoreboard every 20 games to ensure the scores don't run off the end
      * of the scoreboard.
      */
-    private void getScoreBoardUpdate() {
-
+    private void getScoreBoardUpdate()
+    {
         String score = String.valueOf(game.getFinalScore());
 
-        if (!isTwoPlayer || numberOfRoundsRemaining % 2 == 0) {                         // If it's not a two player or player1 is playing
-
-            if (numberOfScores > 20) {                                                  // If score panel gets too full.
-
-                player1HolderPanel.removeAll();                                         // Clear the score panel if it gets too full.
+        // If it's not a two player or player1 is playing
+        if (!isTwoPlayer || numberOfRoundsRemaining % 2 == 0)
+        {
+            // If score panel gets too full.
+            if (numberOfScores > 20)
+            {
+                // Clear the score panel if it gets too full.
+                player1HolderPanel.removeAll();
                 numberOfScores = 0;
             }
 
             numberOfScores++;
 
-            player1HolderPanel.add(new JLabel(score, SwingConstants.CENTER));           // Add score to player1's board
+            // Add score to player1's board
+            player1HolderPanel.add(new JLabel(score, SwingConstants.CENTER));
             player1Total = player1Total + game.getFinalScore();
-
-        } else {
-
-            player2HolderPanel.add(new JLabel(score, SwingConstants.CENTER));           // Add score to player2's board
+        }
+        else
+        {
+            // Add score to player2's board
+            player2HolderPanel.add(new JLabel(score, SwingConstants.CENTER));
             player2Total = player2Total + game.getFinalScore();
         }
     }
@@ -311,8 +340,8 @@ public class GameBoard {
      *
      * @return Returns true if the game is in progress, otherwise false.
      */
-    public boolean getIsGameInProgress() {
-
+    public boolean getIsGameInProgress()
+    {
         return gameIsInProgress;
     }
 
@@ -325,8 +354,8 @@ public class GameBoard {
      *
      * @return Returns true if a user has successfully closed a box, otherwise false.
      */
-    public boolean getHasClosedBox() {
-
+    public boolean getHasClosedBox()
+    {
         return hasClosedBox;
     }
 
@@ -340,8 +369,8 @@ public class GameBoard {
      * @param choice True or false depending on whether or not we should display the
      *               gamePanel container.
      */
-    public void setGameVisible(boolean choice) {
-
+    public void setGameVisible(boolean choice)
+    {
         gamePanel.setVisible(choice);
 
         gamePanel.repaint();
@@ -363,34 +392,38 @@ public class GameBoard {
      * @param isTwoPlayer    Whether or not it's a two player game.
      * @param playerNames    A String array of up to 2 player names.
      */
-    public void setupNewGame(int numberOfRounds, boolean isTwoPlayer, String[] playerNames) {
-
+    public void setupNewGame(int numberOfRounds, boolean isTwoPlayer, String[] playerNames)
+    {
         this.isTwoPlayer = isTwoPlayer;
         this.playerNames = playerNames;
         this.numberOfRoundsRemaining = numberOfRounds;
 
-        if (isTwoPlayer) {
-
+        if (isTwoPlayer)
+        {
             player2Total = 0;
-            wasTwoPlayerGame = true;                                                    // Differs from isTwoPlayer because wasTwoPlayerGame is only
-            player1HolderPanel.removeAll();                                             // altered within this function.
+
+            // Differs from isTwoPlayer because wasTwoPlayerGame is only altered within this function.
+            wasTwoPlayerGame = true;
+            player1HolderPanel.removeAll();
             player2NameLabel.setText(playerNames[1]);
             player2HolderPanel.removeAll();
-
-        } else {                                                                        // If it's a 1 player game
-
-            if (wasTwoPlayerGame) {                                                     // But was a 2 player game last time
-
-                wasTwoPlayerGame = false;                                               // And set our flag false so this only runs once
-                player1HolderPanel.removeAll();                                         // Flush both panels
+        }
+        else
+        {
+            // But was a 2 player game last time
+            if (wasTwoPlayerGame)
+            {
+                wasTwoPlayerGame = false;
+                player1HolderPanel.removeAll();
                 player2HolderPanel.removeAll();
-                player2NameLabel.setText("");                                           // Remove player 2's name
+                player2NameLabel.setText("");
                 numberOfScores = 0;
             }
 
-            if (!player1NameLabel.getText().equalsIgnoreCase(playerNames[0])) {         // Or if player 1's name has changed
-
-                player1HolderPanel.removeAll();                                         // Clear the score panel and reset number of scores held
+            // If player 1's name has changed
+            if (!player1NameLabel.getText().equalsIgnoreCase(playerNames[0]))
+            {
+                player1HolderPanel.removeAll();
                 numberOfScores = 0;
             }
         }
@@ -402,14 +435,17 @@ public class GameBoard {
         throwPanel.repaint();
 
         wasPlayerOnesTurn = true;
-        hasClosedBox = false;                                                           // Reset our conditions
+        hasClosedBox = false;
         gameIsInProgress = true;
 
-        game.setUpNewGame();                                                            // always plays first and always needs setting as new.
+        // We want to play again, so setup the back end accordingly, throw and display
+        // some new dice, recurse through GUI post boxes.setAllOpen(), then get a
+        // message bar update.
+        game.setUpNewGame();
 
-        setDiceDisplay(game.getDiceThrow());                                            // We want to play again, so setup the back end accordingly,
-        setPreviousGuiBoxesState();                                                     // throw and display some new dice, recurse through GUI post
-        getMessageBarUpdate();                                                          // boxes.setAllOpen(), then get a message bar update.
+        setDiceDisplay(game.getDiceThrow());
+        setPreviousGuiBoxesState();
+        getMessageBarUpdate();
     }
 
 
@@ -425,67 +461,77 @@ public class GameBoard {
      *  In multi-player mode, when the timer is up, the felt background changes colour
      *  we set our game state boolean, tell the game logic to setup a new game, then get
      *  a new dice throw, reset our graphical boxes to open and finally get a message
-     *  bar update.
+     *  bar update. Called from BoxButtonAfterTimerHandler.
      */
-    private void setGameOverCondition() {                                               // Called from BoxButtonAfterTimerHandler
-
+    private void setGameOverCondition()
+    {
         getScoreBoardUpdate();
         getMessageBarUpdate();
 
         numberOfRoundsRemaining--;
 
-        if (numberOfRoundsRemaining == 0) {                                             // If all rounds are over
-
-            hasClosedBox = false;                                                       // Reset our game play conditions
+        if (numberOfRoundsRemaining == 0)
+        {
+            hasClosedBox = false;
             gameIsInProgress = false;
-            menus.createInGameModal();                                                  // Show modal and disable the glass pane
+            menus.createInGameModal();
             menus.getGlassPane().setVisible(false);
-                                                                                        // If the rounds aren't over
-        } else {
-                                                                                        // Set the text as it needs to be to begin with, avoids
-            roundOverLabel.setText("Next round starts in 4");                           // flashing a 0 before the counter setText kicks in.
-            roundOverLabel.setVisible(true);                                            // Show our round over label.
+        }
+        else
+        {
+            // Set the text as it needs to be to begin with, avoids flashing a 0 before the counter setText kicks in.
+            roundOverLabel.setText("Next round starts in 4");
 
-            Timer timer = new Timer(1100, new ActionListener() {                        // Setup our timer
+            //Show our round over label.
+            roundOverLabel.setVisible(true);
 
-                int counter = 4;                                                        // Setup counter
+            Timer timer = new Timer(1100, new ActionListener()
+            {
+                int counter = 4;
 
+                // Loop until counter hits 0
                 @Override
-                public void actionPerformed(ActionEvent e) {                            // Loop until counter hits 0
-
-                    roundOverLabel.setText("Next round starts in " + (counter - 1));    // Show our countdown message
+                public void actionPerformed(ActionEvent e)
+                {
+                    // Show our countdown message
+                    roundOverLabel.setText("Next round starts in " + (counter - 1));
                     counter--;
 
-                    if (counter == 0) {                                                 // When our counter hits 0
+                    if (counter == 0)
+                    {
+                        ((Timer) e.getSource()).stop();
 
-                        ((Timer) e.getSource()).stop();                                 // Stop the counter
+                        hasClosedBox = false;
+                        game.setUpNewGame();
+                        setDiceDisplay(game.getDiceThrow());
 
-                        hasClosedBox = false;                                           // Reset 1 condition because we're still playing a game.
-                        game.setUpNewGame();                                            // We're playing again so setup up a new game (technically
-                        setDiceDisplay(game.getDiceThrow());                            // a new round), throw and display some new dice and
-                        setPreviousGuiBoxesState();                                     // recurse through boxes resetting their visual status.
+                        // Recurse through boxes resetting their visual status.
+                        setPreviousGuiBoxesState();
 
-                        if (wasPlayerOnesTurn) {                                        // If player 1 played last time
-
+                        if (wasPlayerOnesTurn)
+                        {
                             throwPanel.setNewImage("blue_felt.png");
                             wasPlayerOnesTurn = false;
                             messageLabel.setText(game.getMessage() + " - Good Luck " + playerNames[1] + " !");
 
-                        } else {                                                        // If player 2 played last time
-
+                        }
+                        else
+                        {
                             throwPanel.setNewImage("green_felt.png");
                             wasPlayerOnesTurn = true;
                             messageLabel.setText(game.getMessage() + " - Good Luck " + playerNames[0] + " !");
                         }
 
                         throwPanel.revalidate();
-                        roundOverLabel.setVisible(false);                               // Finally remove the roundOverLabel
-                        menus.getGlassPane().setVisible(false);                         // And remove our glass pane.
+                        roundOverLabel.setVisible(false);
+                        menus.getGlassPane().setVisible(false);
                     }
                 }
             });
-            timer.setInitialDelay(600);                                                 // Totals 1000ms when coupled with BoxButtonHandler
-            timer.start();                                                              // 400ms delay.
+
+            // Totals 1000ms when coupled with BoxButtonHandler
+            timer.setInitialDelay(600);
+            timer.start();
         }
     }
 
@@ -498,25 +544,25 @@ public class GameBoard {
      * @return A string with a brief message detailing which player won, or if a single
      *         player game, their final score.
      */
-    public String getGameOverMessage() {
-
-        if (isTwoPlayer) {
-
-            if (player1Total < player2Total) {
-
+    public String getGameOverMessage()
+    {
+        if (isTwoPlayer)
+        {
+            if (player1Total < player2Total)
+            {
                 return playerNames[0] + " wins!";
-
-            } else if (player1Total > player2Total) {
-
+            }
+            else if (player1Total > player2Total)
+            {
                 return playerNames[1] + " wins!";
-
-            } else {
-
+            }
+            else
+            {
                 return "It's a draw!";
             }
-
-        } else {
-
+        }
+        else
+        {
             return "You scored " + player1Total + "!";
         }
     }
@@ -532,20 +578,25 @@ public class GameBoard {
      * were before the failed turn). This method also disables the reset button after
      * the boxes have been set, because there can never be anything available to reset.
      */
-    private void setPreviousGuiBoxesState() {
+    private void setPreviousGuiBoxesState()
+    {
+        // Iterate through each box in our boxes array.
+        for (int i = 0; i < game.getBoxesLength(); i++)
+        {
+            // Do .setEnabled(true/false) (aka open/closed) as required
+            boxButton[i].setEnabled(game.getBoxState(i));
 
-        for (int i = 0; i < game.getBoxesLength(); i++) {                               // Iterate through each box in our boxes array.
-
-            boxButton[i].setEnabled(game.getBoxState(i));                               // Do .setEnabled(true/false) (aka open/closed) as required
-
-            if (game.getBoxState(i)) {                                                  // If box returns true (aka open) add label back
-
+            // If box returns true (aka open) add label back
+            if (game.getBoxState(i))
+            {
                 boxLabel[i].setText(String.valueOf(i + 1));
             }
         }
-                                                                                        // We're resetting our boxes because a failed state occurred,
-        resetButton.setEnabled(false);                                                  // so disable reset until another box is chosen next turn.
-        
+
+        // We're resetting our boxes because a failed state occurred, so disable reset
+        // until another box is chosen next turn
+        resetButton.setEnabled(false);
+
         boxesPanel.revalidate();
     }
 
@@ -558,8 +609,8 @@ public class GameBoard {
      * @param dice the dice array containing both die values to use when displaying the
      *             dice.
      */
-    private void setDiceDisplay(int[] dice) {
-
+    private void setDiceDisplay(int[] dice)
+    {
         dieLabel1.setIcon("die" + dice[0] + ".png", 175);
         dieLabel2.setIcon("die" + dice[1] + ".png", 195);
 
@@ -574,8 +625,8 @@ public class GameBoard {
      * Updates our message bar to reflect whatever message has been set by the logic in
      * the game logic class.
      */
-    private void getMessageBarUpdate() {
-
+    private void getMessageBarUpdate()
+    {
         messageLabel.setText(game.getMessage());
     }
 
@@ -586,10 +637,10 @@ public class GameBoard {
      * Calls createInGameModal in the Menus class to create the in game menu modal when
      * the user clicks the yellow "Menu" button from the game panel.
      */
-    public class YellowMenuButtonHandler implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-
+    public class YellowMenuButtonHandler implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
             menus.createInGameModal();
         }
     }
@@ -602,13 +653,18 @@ public class GameBoard {
      * user choices when the user realises they've made a mistake. This isn't simply
      * cosmetic, it updates game logic (boxes restore themselves) to this effect too.
      */
-    public class YellowResetButtonHandler implements ActionListener {
+    public class YellowResetButtonHandler implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            // Force game reset by passing true to end the turn
+            game.getIsTheTurnOver(true);
 
-        public void actionPerformed(ActionEvent e) {
+            // Recurse through GUI boxes setting states post boxes.restore..
+            getMessageBarUpdate();
 
-            game.getIsTheTurnOver(true);                                                // Force game reset by passing true to end the turn.
-            getMessageBarUpdate();                                                      // Recurse through GUI boxes setting states post boxes.restore
-            setPreviousGuiBoxesState();                                                 // And get our message bar update to reflect the reset
+            // ..and get our message bar update to reflect the reset
+            setPreviousGuiBoxesState();
         }
     }
 
@@ -633,23 +689,30 @@ public class GameBoard {
      * happened as a direct cause of it. It just makes the game's logic more
      * understandable.
      */
-    public class BoxButtonHandler implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-
+    public class BoxButtonHandler implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
             menus.getGlassPane().setVisible(true);
 
             JButton chosenBox = (JButton) e.getSource();
-            chosenBoxNo = Integer.parseInt(e.getActionCommand());                       // Box no 1-9
 
-            boxLabel[chosenBoxNo - 1].setText("");                                      // We've made a choice so ensure reset can be
-            chosenBox.setEnabled(false);                                                // pressed. Then Disable chosen box and remove
-            resetButton.setEnabled(true);                                               // it's label, then wait 400ms using the timer below
-                                                                                        // before continuing on to BoxButtonAfterTimerHandler.
+            // Box no 1-9
+            chosenBoxNo = Integer.parseInt(e.getActionCommand());
+
+            // We've made a choice so ensure reset can be pressed. Then Disable chosen
+            // box and remove it's label, then wait 400ms using the timer below before
+            // continuing on to BoxButtonAfterTimerHandler.
+            boxLabel[chosenBoxNo - 1].setText("");
+            chosenBox.setEnabled(false);
+            resetButton.setEnabled(true);
+
+            // Timer is here so that if an invalid box is chosen there is a pause before
+            // it automatically resets, otherwise it seems too instant and can be confusing.
             Timer timer = new Timer(400, new BoxButtonAfterTimerHandler());
-            timer.setRepeats(false);                                                    // Timer is here so that if an invalid box is chosen
-            timer.start();                                                              // there is a pause before it automatically resets.
-        }                                                                               // Otherwise it seems too instant and can be confusing.
+            timer.setRepeats(false);
+            timer.start();
+          }
     }
 
 
@@ -672,39 +735,48 @@ public class GameBoard {
      * Because one of the above possibilities has happened, we need to check for a game
      * over state and if our game is over, we handle the game over state condition.
      */
-    public class BoxButtonAfterTimerHandler implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-                                                                                        // After a delay we submit our choice.
+    public class BoxButtonAfterTimerHandler implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
             game.setBoxChoice(chosenBoxNo);
-                                                                                        // Check to see if our choice means the turn is over.
-            if (game.getIsTheTurnOver(false)) {                                         // False because we're not forcing the condition.
 
-                if (!game.getTurnSuccess()) {                                           // If it's over without success re-paint our boxes
-                                                                                        // after the boxes.restore triggered by unsuccessful
-                    setPreviousGuiBoxesState();                                         // turn.
+            // False here because we're not forcing the condition.
+            if (game.getIsTheTurnOver(false)) {
 
-                } else {
-
-                    setDiceDisplay(game.getDiceThrow());                                // If this turn successfully closed boxes we roll
-                    resetButton.setEnabled(false);                                      // again and disable the reset button until we get
-                    hasClosedBox = true;                                                // another choice.
+                // If it's over without success re-paint our boxes after the boxes.restore
+                // triggered by unsuccessful turn
+                if (!game.getTurnSuccess())
+                {
+                    setPreviousGuiBoxesState();
+                }
+                else
+                {
+                    //If this turn successfully closed boxes we roll again and disable the
+                    // reset button until we get another choice
+                    setDiceDisplay(game.getDiceThrow());
+                    resetButton.setEnabled(false);
+                    hasClosedBox = true;
                 }
 
-                if (game.getIsGameOver()) {                                             // And having rolled the dice, we test for a game over
-
-                    setGameOverCondition();                                             // If it's game over handle it whilst leaving the
-                                                                                        // glass pane enabled.
-
-                } else {
-
-                    menus.getGlassPane().setVisible(false);                             // If the turn is over for whatever reason but it's
-                    getMessageBarUpdate();                                              // not game over disable the glass pane
+                // And having rolled the dice, we test for a game over
+                if (game.getIsGameOver())
+                {
+                    // If it's game over handle it whilst leaving the glass pane enabled
+                    setGameOverCondition();
                 }
-
-            } else {
-
-                menus.getGlassPane().setVisible(false);                                 // If the turn isn't over disable the glass pane.
+                else
+                {
+                    // If the turn is over for whatever reason but it's not game over
+                    // disable the glass pane
+                    menus.getGlassPane().setVisible(false);
+                    getMessageBarUpdate();
+                }
+            }
+            else
+            {
+                // If the turn isn't over disable the glass pane.
+                menus.getGlassPane().setVisible(false);
                 getMessageBarUpdate();
             }
         }

@@ -18,8 +18,8 @@ import java.awt.event.*;
 import javax.imageio.ImageIO;
 
 @SuppressWarnings("serial")
-public class Menus extends JFrame {
-
+public class Menus extends JFrame
+{
     public  JPanelBg               containerPanel;
     public  JPanel                 glass;
     private StartNewGameBtnHandler startNewGameBtnHandler;
@@ -51,8 +51,8 @@ public class Menus extends JFrame {
      * the menu bar. Finally we set the JFrame as visible and create an instance of our
      * game board.
       */
-    public Menus() {
-
+    public Menus()
+    {
         playerNames = new String[] {"Player1", "Player2"};
         buttonTextColour = new Color(53, 41, 34);
         buttonText = new Font("Serif", Font.PLAIN, 28);
@@ -61,53 +61,57 @@ public class Menus extends JFrame {
 
         System.setProperty("apple.laf.useScreenMenuBar", "true");
 
-        try {
-
+        try
+        {
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, this.getClass().getClassLoader().getResourceAsStream("resources/fonts/the-urban-way.ttf")));
-
-        } catch (Exception e) {
-
+        }
+        catch (Exception e)
+        {
             JOptionPane.showMessageDialog (this, "File: resources/fonts/the-urban-way.ttf failed to load:" + e + ".\n" +
                                                  "You may OK this message and continue at your own risk.",
                                                  "Error", JOptionPane.ERROR_MESSAGE);
         }
 
+        // -----------------------------------------
 
-        try {
-
+        try
+        {
             setIconImage(ImageIO.read(getClass().getClassLoader().getResource("resources/imgs/die6.png")));
-
-        } catch (Exception e) {
-
+        }
+        catch (Exception e)
+        {
             JOptionPane.showMessageDialog (this, "File: resources/imgs/die6.png failed to load:" + e + ".\n" +
                                                  "You may OK this message and continue at your own risk.",
                                                  "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         setBackground(backgroundColour);
-        setTitle("Shut the Box");                                                       // Create our window frame
+        setTitle("Shut the Box");
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        containerPanel = new JPanelBg("wood-with-trim.png");                            // Then the base container
+        containerPanel = new JPanelBg("wood-with-trim.png");
         containerPanel.setPreferredSize(new Dimension(1280, 720));
         containerPanel.setOpaque(false);
         add(containerPanel, BorderLayout.CENTER);
 
-        glass = new JPanel(new GridLayout(0, 1));                                       // Glass pane stops boxes being closed during 400ms timer delay.
+        // Glass pane stops boxes being closed during 400ms timer delay.
+        glass = new JPanel(new GridLayout(0, 1));
         glass.setOpaque(false);
         setGlassPane(glass);
 
-        glass.addMouseListener(new MouseAdapter() {                                     // Listen for clicks on glass pane
+        // Listen for clicks on glass pane..
+        glass.addMouseListener(new MouseAdapter()
+        {
             public void mousePressed(MouseEvent e)
             {
-                e.consume();                                                            // And discard them.
-
+                // ..and discard them.
+                e.consume();
             }
         });
 
-        createMainMenuPanel();                                                          // Create main menu
-        createMenuBar();                                                                // Create menu bar
+        createMainMenuPanel();
+        createMenuBar();
 
         gameBoard = new GameBoard(this);
 
@@ -125,8 +129,8 @@ public class Menus extends JFrame {
      * contains the "How to Play", "About" and "Exit" button. This method is called from
      * Menus.java's constructor.
      */
-    private void createMainMenuPanel() {
-
+    private void createMainMenuPanel()
+    {
         mainMenuContainerPanel = new JPanel(new GridBagLayout());
         mainMenuContainerPanel.setPreferredSize(new Dimension(1280, 720));
         mainMenuContainerPanel.setOpaque(false);
@@ -137,17 +141,21 @@ public class Menus extends JFrame {
         mainMenuPanel.setPreferredSize(new Dimension(700, 420));
         mainMenuContainerPanel.add(mainMenuPanel);
 
-        JPanelBg leftMenuPanel = new JPanelBg("big-logo.png");                          // I prefer to use my custom JPanelBg than a label, because I can trivially add
-        leftMenuPanel.setSize(new Dimension(325,420));                                  // elements inside the JPanelBg if required, so more flexible moving forward.
+        // I prefer to use my custom JPanelBg than a label, because I can trivially add
+        // elements inside the JPanelBg if required, so more flexible moving forward.
+        JPanelBg leftMenuPanel = new JPanelBg("big-logo.png");
+        leftMenuPanel.setSize(new Dimension(325,420));
 
-        gc.fill = GridBagConstraints.BOTH;                                              // MY NOTES:
-        gc.weightx = 1;                                                                 // Priority when affording this panel's width.
-        gc.weighty = 1;                                                                 // Priority when affording this panel's height.
-        gc.gridx = 0;                                                                   // Left most grid.
-        gc.gridy = 0;                                                                   // Top most grid.
-        gc.gridwidth = 1;                                                               // Spans one (adjacent) grid width.
-        gc.gridheight = 4;                                                              // Spans 4 (adjacent) grid heights.
-        gc.insets = new Insets(0, 0, 0, 40);                                            // Margin Top, Left, Bottom, Right. - This is purposefully repeated elsewhere.
+        gc.fill = GridBagConstraints.BOTH;
+        gc.weightx = 1;                         // Priority when affording this panel's width.
+        gc.weighty = 1;                         // Priority when affording this panel's height.
+        gc.gridx = 0;                           // Left most grid.
+        gc.gridy = 0;                           // Top most grid.
+        gc.gridwidth = 1;                       // Spans one (adjacent) grid width.
+        gc.gridheight = 4;                      // Spans 4 (adjacent) grid heights.
+
+        //            Margin Top, L, B, Right
+        gc.insets = new Insets(0, 0, 0, 40);
         mainMenuPanel.add(leftMenuPanel, gc);
 
         // -----------------------------------------
@@ -168,12 +176,14 @@ public class Menus extends JFrame {
         gc.gridx = 1;
         gc.gridheight = 1;
 
-        for (int i = 0; i < 4; i++) {
-                                                       // Font          Text colour           Text             Image           Pressed Image           Disabled image
+        for (int i = 0; i < 4; i++)
+        {
+            //                                             Font       Text colour           Text                Image           Pressed Image           Disabled image
             mainMenuButtons[i] = new JButtonCustomised(buttonText, buttonTextColour, mainMenuButtonText[i], "wood-btn.png", "wood-btn-pressed.png", "wood-btn-pressed.png");
             mainMenuButtons[i].addActionListener(menuHandlers[i]);
 
-            gc.gridy = i;                                                               // Vertical grid position goes down as each button is added.
+            // Vertical grid position goes down as each button is added.
+            gc.gridy = i;
             mainMenuPanel.add(mainMenuButtons[i], gc);
         }
     }
@@ -185,8 +195,8 @@ public class Menus extends JFrame {
      * This method creates our new game modal, where we choose a one or two player game
      * or can opt to return to the main menu instead if we choose.
      */
-    private void createNewGameModal() {
-
+    private void createNewGameModal()
+    {
         newGameMenuDialog = new JDialog(this, true);
         newGameMenuDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         newGameMenuDialog.setUndecorated(true);
@@ -195,15 +205,18 @@ public class Menus extends JFrame {
         newGameMenuDialog.setLayout(new BorderLayout());
         newGameMenuDialog.setBackground(backgroundColour);
         newGameMenuDialog.setLocationRelativeTo(this);
-        newGameMenuDialog.addWindowListener(new WindowAdapter() {                       // For each modal we make we use a boolean to determine if it's open before
-                                                                                        // we attempt to close it, this avoids null pointer issues.
-            public void windowOpened(WindowEvent e) {
 
+        // For each modal we make we use a boolean to determine if it's open before we
+        // attempt to close it, this avoids null pointer issues.
+        newGameMenuDialog.addWindowListener(new WindowAdapter()
+        {
+            public void windowOpened(WindowEvent e)
+            {
                 createNewGameMenuOpen = true;
             }
 
-            public void windowClosed(WindowEvent e) {
-
+            public void windowClosed(WindowEvent e)
+            {
                 createNewGameMenuOpen = false;
             }
         });
@@ -225,7 +238,8 @@ public class Menus extends JFrame {
         gc.gridy = 0;
         gc.gridwidth = 1;
         gc.gridheight = 1;
-        gc.insets = new Insets(0, 0, 0, 0);                                             // Margin Top, Left, Bottom, Right.
+        //            Margin Top, L, B, Right.
+        gc.insets = new Insets(0, 0, 0, 0);
         newGameMenuPanel.add(newGameMenuTitle, gc);
 
         // -----------------------------------------
@@ -233,16 +247,18 @@ public class Menus extends JFrame {
         JButton[] overlayButtons = new JButton[3];
         String[] overlayButtonNames = new String[]{"1 Player Game", "2 Player Game", "Back"};
 
-        gc.weighty = 0.15;                                                              // Ensure the menu doesn't get deformed.
+        // Ensure the menu doesn't get deformed.
+        gc.weighty = 0.15;
 
-        for (int i = 0; i < overlayButtonNames.length; i++) {
-                                                      // Font          Text colour           Text             Image           Pressed Image           Disabled image
+        for (int i = 0; i < overlayButtonNames.length; i++)
+        {
+            //                                           Font       Text colour             Text               Image           Pressed Image           Disabled image
             overlayButtons[i] = new JButtonCustomised(buttonText, buttonTextColour, overlayButtonNames[i], "wood-btn.png", "wood-btn-pressed.png", "wood-btn-placeholder.png");
 
             gc.gridy = (i + 1);
 
-            if (i == 2) {
-
+            if (i == 2)
+            {
                 gc.insets = new Insets(0, 0, 32, 0);
             }
 
@@ -263,8 +279,8 @@ public class Menus extends JFrame {
      * This method creates our modal for entering the player's name at the beginning of
      * a one player game.
      */
-    private void createOnePlayerNameModal() {                                           // I had 1 and 2 player menus as one function, it was less lines but
-                                                                                        // so much less readable, even with human friendly variable names.
+    private void createOnePlayerNameModal()
+    {
         playerNameMenuDialog = new JDialog(this, true);
         playerNameMenuDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         playerNameMenuDialog.setUndecorated(true);
@@ -273,15 +289,15 @@ public class Menus extends JFrame {
         playerNameMenuDialog.setLayout(new BorderLayout());
         playerNameMenuDialog.setBackground(backgroundColour);
         playerNameMenuDialog.setLocationRelativeTo(this);
-        playerNameMenuDialog.addWindowListener(new WindowAdapter() {
-
-            public void windowOpened(WindowEvent e) {
-
+        playerNameMenuDialog.addWindowListener(new WindowAdapter()
+        {
+            public void windowOpened(WindowEvent e)
+            {
                 createPlayerNameModal = true;
             }
 
-            public void windowClosed(WindowEvent e) {
-
+            public void windowClosed(WindowEvent e)
+            {
                 createPlayerNameModal = false;
             }
         });
@@ -300,6 +316,8 @@ public class Menus extends JFrame {
         gc.gridy = 0;
         gc.gridwidth = 1;
         gc.gridheight = 1;
+
+        //            Margin Top, L, B, Right
         gc.insets = new Insets(0, 0, 0, 0);
         playerNameMenuPanel.add(playerNameMenuTitle, gc);
 
@@ -310,7 +328,7 @@ public class Menus extends JFrame {
         player1Panel.setOpaque(false);
         gc.weighty = 0.25;
         gc.gridy = (2);
-        gc.insets = new Insets(0, 50, 0, 50);                                           // Margin Top, Left, Bottom, Right.
+        gc.insets = new Insets(0, 50, 0, 50);
         playerNameMenuPanel.add(player1Panel, gc);
 
         player1Name = new JTextField(playerNames[0]);
@@ -323,7 +341,7 @@ public class Menus extends JFrame {
 
         player1Name.addKeyListener(new NameLengthListener());
 
-                                                    // Font    Text colour    Text      Image           Pressed Image           Disabled image
+        //                                            Font        Text colour     Text       Image           Pressed Image           Disabled image
         JButton playButton = new JButtonCustomised(buttonText, buttonTextColour, "Play", "wood-btn.png", "wood-btn-pressed.png", "wood-btn-placeholder.png");
 
         playButton.setActionCommand("1");
@@ -346,8 +364,8 @@ public class Menus extends JFrame {
      * each (so 6 games in total) or 5 games each (10 in total). The enter game button
      * calles the same method, but the two buttons have different action commands.
      */
-    private void createTwoPlayerNameModal() {                                           // I had 1 and 2 player menus as one function, it was less lines but
-                                                                                        // so much less readable, even with human friendly variable names.
+    private void createTwoPlayerNameModal()
+    {
         playerNameMenuDialog = new JDialog(this, true);
         playerNameMenuDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         playerNameMenuDialog.setUndecorated(true);
@@ -356,15 +374,15 @@ public class Menus extends JFrame {
         playerNameMenuDialog.setLayout(new BorderLayout());
         playerNameMenuDialog.setBackground(backgroundColour);
         playerNameMenuDialog.setLocationRelativeTo(this);
-        playerNameMenuDialog.addWindowListener(new WindowAdapter() {
-
-            public void windowOpened(WindowEvent e) {
-
+        playerNameMenuDialog.addWindowListener(new WindowAdapter()
+        {
+            public void windowOpened(WindowEvent e)
+            {
                 createPlayerNameModal = true;
             }
 
-            public void windowClosed(WindowEvent e) {
-
+            public void windowClosed(WindowEvent e)
+            {
                 createPlayerNameModal = false;
             }
         });
@@ -383,7 +401,8 @@ public class Menus extends JFrame {
         gc.gridy = 0;
         gc.gridwidth = 1;
         gc.gridheight = 1;
-        gc.insets = new Insets(0, 0, 0, 0);                                             // Margin Top, Left, Bottom, Right.
+        //            Margin Top, L, B, Right.
+        gc.insets = new Insets(0, 0, 0, 0);
         playerNameMenuPanel.add(playerNameMenuTitle, gc);
 
         // -----------------------------------------
@@ -419,7 +438,8 @@ public class Menus extends JFrame {
         NameLengthListener nameLengthListener = new NameLengthListener();
         player1Name.addKeyListener(nameLengthListener);
         player2Name.addKeyListener(nameLengthListener);
-                                                           // Font          Text colour          Text            Image            Pressed Image            Disabled image
+
+        //                                                    Font         Text colour          Text            Image            Pressed Image            Disabled image
         JButton playThreeEachButton = new JButtonCustomised(buttonText, buttonTextColour, "Play Three Each", "wood-btn.png", "wood-btn-pressed.png", "wood-btn-placeholder.png");
         JButton playFiveEachButton = new JButtonCustomised(buttonText, buttonTextColour, "Play Five Each", "wood-btn.png", "wood-btn-pressed.png", "wood-btn-placeholder.png");
 
@@ -429,7 +449,7 @@ public class Menus extends JFrame {
         playThreeEachButton.addActionListener(enterGameBtnHandler);
         playFiveEachButton.addActionListener(enterGameBtnHandler);
 
-        gc.insets = new Insets(0, 0, 0, 0);                                             // Margin Top, Left, Bottom, Right.
+        gc.insets = new Insets(0, 0, 0, 0);
         gc.weighty = 0.15;
         gc.gridy = (4);
         playerNameMenuPanel.add(playThreeEachButton, gc);
@@ -449,14 +469,14 @@ public class Menus extends JFrame {
      * Game" and "Exit" buttons. The "help" drop down holds the "How to Play" and
      * "About" buttons. This method is called from Menus.java's constructor.
      */
-    private void createMenuBar() {
-
-        JMenuBar menuBar = new JMenuBar();                                              // Create a menu bar.
+    private void createMenuBar()
+    {
+        JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
 
         // -----------------------------------------
 
-        JMenu gameMenu = new JMenu("Game");                                             // Create 'Game' item on menu.
+        JMenu gameMenu = new JMenu("Game");
         gameMenu.setToolTipText("Game options");
         menuBar.add(gameMenu);
 
@@ -474,7 +494,7 @@ public class Menus extends JFrame {
 
         // -----------------------------------------
 
-        JMenu helpMenu = new JMenu("Help");                                             // Create 'Help' item on menu.
+        JMenu helpMenu = new JMenu("Help");
         helpMenu.setToolTipText("Help options");
         menuBar.add(helpMenu);
 
@@ -498,8 +518,8 @@ public class Menus extends JFrame {
      * This method creates our "About" modal which provides brief details about the
      * program version and author.
      */
-    private void createAboutModal() {
-
+    private void createAboutModal()
+    {
         aboutDialog = new JDialog(this, true);
         aboutDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         aboutDialog.setUndecorated(true);
@@ -508,15 +528,15 @@ public class Menus extends JFrame {
         aboutDialog.setLayout(new BorderLayout());
         aboutDialog.setBackground(backgroundColour);
         aboutDialog.setLocationRelativeTo(this);
-        aboutDialog.addWindowListener(new WindowAdapter() {
-
-            public void windowOpened(WindowEvent e) {
-
+        aboutDialog.addWindowListener(new WindowAdapter()
+        {
+            public void windowOpened(WindowEvent e)
+            {
                 aboutMenuOpen = true;
             }
 
-            public void windowClosed(WindowEvent e) {
-
+            public void windowClosed(WindowEvent e)
+            {
                 aboutMenuOpen = false;
             }
         });
@@ -537,11 +557,12 @@ public class Menus extends JFrame {
         about.setHorizontalAlignment(SwingConstants.CENTER);
         about.setFont(new Font("The Urban Way", Font.BOLD, 18));
         about.setForeground(new Color(50, 50, 50));
-        about.setText("<html><h2 text-align:center>Shut the Box<br>Version: 1.0.1<br>Anna Thomas<br>s4927945");
+        about.setText("<html><h2 text-align:center>Shut the Box<br>Version: 1.0.2<br>Anna Thomas<br>s4927945");
 
         aboutPanel.add(aboutTitle);
         aboutPanel.add(about);
-                                                    // Font      Text colour     Text         Image            Pressed Image        Disabled image
+
+        //                                             Font        Text colour      Text        Image            Pressed Image        Disabled image
         JButton closeButton = new JButtonCustomised(buttonText, buttonTextColour, "Close", "close-btn.png", "close-btn-pressed.png", "close-btn.png");
         closeButton.addActionListener(new CloseAboutBtnHandler());
         closeButton.setBounds(120, 320, 221, 82);
@@ -558,8 +579,8 @@ public class Menus extends JFrame {
      * This method creates our "About" modal which provides brief details about how to
      * play the game.
      */
-    private void createHowToPlayModal() {
-
+    private void createHowToPlayModal()
+    {
         howToPlayDialog = new JDialog(this, true);
         howToPlayDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         howToPlayDialog.setUndecorated(true);
@@ -568,15 +589,15 @@ public class Menus extends JFrame {
         howToPlayDialog.setLayout(new BorderLayout());
         howToPlayDialog.setBackground(backgroundColour);
         howToPlayDialog.setLocationRelativeTo(this);
-        howToPlayDialog.addWindowListener(new WindowAdapter() {
-
-            public void windowOpened(WindowEvent e) {
-
+        howToPlayDialog.addWindowListener(new WindowAdapter()
+        {
+            public void windowOpened(WindowEvent e)
+            {
                 howToPlayMenuOpen = true;
             }
 
-            public void windowClosed(WindowEvent e) {
-
+            public void windowClosed(WindowEvent e)
+            {
                 howToPlayMenuOpen = false;
             }
         });
@@ -605,7 +626,7 @@ public class Menus extends JFrame {
         howToPlayPanel.add(howToPlayTitle);
         howToPlayPanel.add(howToPlay);
 
-                                                    // Font      Text colour      Text       Image            Pressed Image        Disabled image
+        //                                             Font        Text colour     Text         Image            Pressed Image        Disabled image
         JButton closeButton = new JButtonCustomised(buttonText, buttonTextColour, "Close", "close-btn.png", "close-btn-pressed.png", "close-btn.png");
         closeButton.addActionListener(new CloseHowToPlayBtnHandler());
         closeButton.setBounds(120, 470, 221, 82);
@@ -624,8 +645,8 @@ public class Menus extends JFrame {
      * If a game is in progress the "New game", "Continue" and "Main Menu" buttons are
      * visible, otherwise just the "New Game and "Main Menu" buttons are visible.
      */
-    public void createInGameModal() {
-
+    public void createInGameModal()
+    {
         inGameMenuDialog = new JDialog(this, true);
         inGameMenuDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         inGameMenuDialog.setUndecorated(true);
@@ -634,15 +655,15 @@ public class Menus extends JFrame {
         inGameMenuDialog.setLayout(new BorderLayout());
         inGameMenuDialog.setBackground(backgroundColour);
         inGameMenuDialog.setLocationRelativeTo(this);
-        inGameMenuDialog.addWindowListener(new WindowAdapter() {
-
-            public void windowOpened(WindowEvent e) {
-
+        inGameMenuDialog.addWindowListener(new WindowAdapter()
+        {
+            public void windowOpened(WindowEvent e)
+            {
                 inGameChoiceMenuOpen = true;
             }
 
-            public void windowClosed(WindowEvent e) {
-
+            public void windowClosed(WindowEvent e)
+            {
                 inGameChoiceMenuOpen = false;
             }
         });
@@ -664,7 +685,8 @@ public class Menus extends JFrame {
         gc.gridy = 0;
         gc.gridwidth = 1;
         gc.gridheight = 1;
-        gc.insets = new Insets(0, 0, 0, 0);                                             // Margin Top, Left, Bottom, Right.
+        //            Margin Top, L, B, Right.
+        gc.insets = new Insets(0, 0, 0, 0);
         inGameMenuPanel.add(inGameMenuTitle, gc);
 
         // -----------------------------------------
@@ -674,14 +696,15 @@ public class Menus extends JFrame {
 
         gc.weighty = 0.15;
 
-        for (int i = 0; i < overlayButtonNames.length; i++) {
-                                                      // Font        Text colour          Text                Image           Pressed Image            Disabled image
+        for (int i = 0; i < overlayButtonNames.length; i++)
+        {
+            //                                          Font        Text colour            Text                Image           Pressed Image          Disabled image
             overlayButtons[i] = new JButtonCustomised(buttonText, buttonTextColour, overlayButtonNames[i], "wood-btn.png", "wood-btn-pressed.png", "paper-text-btn.png");
 
             gc.gridy = (i + 1);
 
-            if (i == 2) {
-
+            if (i == 2)
+            {
                 gc.insets = new Insets(0, 0, 32, 0);
             }
 
@@ -689,21 +712,23 @@ public class Menus extends JFrame {
         }
 
         overlayButtons[0].addActionListener(continueGameBtnHandler);
-        overlayButtons[1].addActionListener(new StartNewGameBtnHandler());              // Action listener names describe the button's function
+        // Action listener names describe the button's function
+        overlayButtons[1].addActionListener(new StartNewGameBtnHandler());
         overlayButtons[2].addActionListener(new ShowMainMenuBtnHandler());
 
-        if (gameBoard.getIsGameInProgress()) {                                          // If the game is in progress
-
+        if (gameBoard.getIsGameInProgress())
+        {
             inGameMenuTitle.setNewImage("menu-title.png");
             overlayButtons[0].addActionListener(continueGameBtnHandler);
             overlayButtons[0].changeIcons("wood-btn.png", "wood-btn-pressed.png");
             overlayButtons[0].setForeground(buttonTextColour);
             overlayButtons[0].setFont(buttonText);
             overlayButtons[0].setText("Continue");
-
-        } else {
-
-            inGameMenuTitle.setNewImage("game-over-title.png");                         // If the game is not in progress, display the "Game Over" title
+        }
+        else
+        {
+            // If the game is not in progress, display the "Game Over" title
+            inGameMenuTitle.setNewImage("game-over-title.png");
             overlayButtons[0].removeActionListener(continueGameBtnHandler);
             overlayButtons[0].changeIcons("wood-btn-placeholder.png", "wood-btn-placeholder.png");
             overlayButtons[0].setForeground(new Color(10, 10, 10));
@@ -725,8 +750,8 @@ public class Menus extends JFrame {
      *
      * @return boolean returns true if the user confirms their choice, otherwise returns false.
      */
-    private boolean getChoiceConfirmation() {
-
+    private boolean getChoiceConfirmation()
+    {
         confirmDialog = new JDialog(this, true);
         confirmDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         confirmDialog.setUndecorated(true);
@@ -735,15 +760,15 @@ public class Menus extends JFrame {
         confirmDialog.setLayout(new BorderLayout());
         confirmDialog.setBackground(backgroundColour);
         confirmDialog.setLocationRelativeTo(this);
-        confirmDialog.addWindowListener(new WindowAdapter() {
-
-            public void windowOpened(WindowEvent e) {
-
+        confirmDialog.addWindowListener(new WindowAdapter()
+        {
+            public void windowOpened(WindowEvent e)
+            {
                 choiceConfirmationMenuOpen = true;
             }
 
-            public void windowClosed(WindowEvent e) {
-
+            public void windowClosed(WindowEvent e)
+            {
                 choiceConfirmationMenuOpen = false;
             }
         });
@@ -762,12 +787,13 @@ public class Menus extends JFrame {
         gc.gridy = 0;
         gc.gridwidth = 2;
         gc.gridheight = 1;
-        gc.insets = new Insets(0, 0, 0, 0);                                             // Margin Top, Left, Bottom, Right.
+        //            Margin Top, L, B, Right.
+        gc.insets = new Insets(0, 0, 0, 0);
         confirmMenuPanel.add(confirmMenuTitle, gc);
 
         // -----------------------------------------
 
-                                                        // Font      Text colour     Text         Image                Pressed Image                  Disabled image
+        //                                                 Font         Text colour    Text        Image                Pressed Image                  Disabled image
         JButton confirmYesButton = new JButtonCustomised(buttonText, buttonTextColour, "Yes","wood-btn-small.png", "wood-btn-small-pressed.png", "wood-btn-small-pressed.png");
         JButton confirmNoButton = new JButtonCustomised(buttonText, buttonTextColour, "No", "wood-btn-small.png", "wood-btn-small-pressed.png", "wood-btn-small-pressed.png");
 
@@ -801,35 +827,36 @@ public class Menus extends JFrame {
      * @param isVisible true if we want the menu to be visible and false if we want the
      *                  game board to be visible.
      */
-    private void setMenuVisible(boolean isVisible) {
-
-        if (isVisible) {
-
-            if (gameBoard.getIsGameInProgress()) {
-
-                mainMenuButtons[0].removeActionListener(startNewGameBtnHandler);        // mainMenuButtons[0] is the top most menu button on the main menu
+    private void setMenuVisible(boolean isVisible)
+    {
+        if (isVisible)
+        {
+            if (gameBoard.getIsGameInProgress())
+            {
+                // mainMenuButtons[0] is the top most menu button on the main menu
+                mainMenuButtons[0].removeActionListener(startNewGameBtnHandler);
                 mainMenuButtons[0].addActionListener(continueGameBtnHandler);
                 mainMenuButtons[0].setText("Continue");
-
-            } else {
-
+            }
+            else
+            {
                 mainMenuButtons[0].removeActionListener(startNewGameBtnHandler);
                 mainMenuButtons[0].addActionListener(startNewGameBtnHandler);
                 mainMenuButtons[0].setText("New Game");
             }
 
-            containerPanel.setNewImage("wood-with-trim.png");                           // Wanted png for its precision to retain trim sharpness
-
-        } else {
-
+            containerPanel.setNewImage("wood-with-trim.png");
+        }
+        else
+        {
             containerPanel.setNewImage("wood.jpg");
-
         }
 
         mainMenuContainerPanel.setVisible(isVisible);
-        gameBoard.setGameVisible(!isVisible);                                           // Note the exclamation mark.
+        gameBoard.setGameVisible(!isVisible);
 
-        mainMenuContainerPanel.repaint();                                               // Slight hack
+        // Slight hack
+        mainMenuContainerPanel.repaint();
         mainMenuContainerPanel.revalidate();
 
         containerPanel.repaint();
@@ -842,31 +869,34 @@ public class Menus extends JFrame {
     /**
      * This method is called when the user clicks the "New Game" button. If a game is in
      * progress the method creates the get confirmation modal popup to check the user's
-     * click was deliberate.
+     * click was deliberate. Called from the in-game menu or main menu.
      */
-    public class StartNewGameBtnHandler implements ActionListener {                     // Called from the in-game menu or main menu.
-
-        public void actionPerformed(ActionEvent e) {
-
-            if (gameBoard.getHasClosedBox()) {                                          // If user has successfully closed boxes.
-
-                if (getChoiceConfirmation()) {                                          // Confirmed we want a new game.
-
-                    createNewGameModal();                                               // Open choose no of players screen
+    public class StartNewGameBtnHandler implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            // If user has successfully closed boxes.
+            if (gameBoard.getHasClosedBox())
+            {
+                // Confirmed we want a new game.
+                if (getChoiceConfirmation())
+                {
+                    // Open choose no of players screen
+                    createNewGameModal();
                 }
-
-            } else {
-
+            }
+            else
+            {
                 createNewGameModal();
             }
 
-            if (createNewGameMenuOpen) {
-
+            if (createNewGameMenuOpen)
+            {
                 newGameMenuDialog.dispose();
             }
 
-            if(inGameChoiceMenuOpen) {
-
+            if(inGameChoiceMenuOpen)
+            {
                 inGameMenuDialog.dispose();
             }
         }
@@ -877,16 +907,16 @@ public class Menus extends JFrame {
     // ---------------------------------------------------------------------------------
     /**
      * This class creates the enter player1 name modal menu when the user selects a
-     * single player game.
+     * single player game. Called from the in-game menu.
      */
-    public class EnterOnePlayerNameBtnHandler implements ActionListener {               // Called from the in-game menu.
-
-        public void actionPerformed(ActionEvent e) {
-
+    public class EnterOnePlayerNameBtnHandler implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
             createOnePlayerNameModal();
 
-            if (createPlayerNameModal) {
-
+            if (createPlayerNameModal)
+            {
                 newGameMenuDialog.dispose();
             }
         }
@@ -897,16 +927,16 @@ public class Menus extends JFrame {
     // ---------------------------------------------------------------------------------
     /**
      * This class creates the enter player1 and player2 names modal menu when the user
-     * selects a two player game.
+     * selects a two player game. Called from the in-game menu.
      */
-    public class EnterTwoPlayerNamesBtnHandler implements ActionListener {              // Called from the in-game menu.
-
-        public void actionPerformed(ActionEvent e) {
-
+    public class EnterTwoPlayerNamesBtnHandler implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
             createTwoPlayerNameModal();
 
-            if (createPlayerNameModal) {
-
+            if (createPlayerNameModal)
+            {
                 newGameMenuDialog.dispose();
             }
         }
@@ -919,12 +949,12 @@ public class Menus extends JFrame {
      * This class allows the user to cancel their choice of starting a new game when
      * they're at the choose 1 or 2 player game menu.
      */
-    public class CloseNewGameBtnHandler implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-
-            if (createNewGameMenuOpen) {
-
+    public class CloseNewGameBtnHandler implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            if (createNewGameMenuOpen)
+            {
                 newGameMenuDialog.dispose();
             }
         }
@@ -942,28 +972,31 @@ public class Menus extends JFrame {
      * whether or not it's a two player game and the player names to the setup new game
      * function in the game board class.
      */
-    public class EnterGameBtnHandler implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-
+    public class EnterGameBtnHandler implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
             int numberOfRoundsToPlay = Integer.parseInt(e.getActionCommand());
 
             playerNames[0] = player1Name.getText();
 
-            if (numberOfRoundsToPlay > 1) {                                             // It must be a two player game
-
+            if (numberOfRoundsToPlay > 1)
+            {
                 playerNames[1] = player2Name.getText();
-                gameBoard.setupNewGame(numberOfRoundsToPlay, true, playerNames);        // True it is a two player game.
 
-            } else {
-
-                gameBoard.setupNewGame(numberOfRoundsToPlay, false, playerNames);       // False it is a one player game.
+                // True it is a two player game.
+                gameBoard.setupNewGame(numberOfRoundsToPlay, true, playerNames);
+            }
+            else
+            {
+                // False it is a one player game.
+                gameBoard.setupNewGame(numberOfRoundsToPlay, false, playerNames);
             }
 
             setMenuVisible(false);
 
-            if (createPlayerNameModal) {
-
+            if (createPlayerNameModal)
+            {
                 playerNameMenuDialog.dispose();
             }
         }
@@ -976,14 +1009,14 @@ public class Menus extends JFrame {
      * This class allows the user to return to the main menu, it's called from the
      * action listener bound to the yellow "Menu" button in game board.
      */
-    public class ShowMainMenuBtnHandler implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-
+    public class ShowMainMenuBtnHandler implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
             setMenuVisible(true);
 
-            if (inGameChoiceMenuOpen) {
-
+            if (inGameChoiceMenuOpen)
+            {
                 inGameMenuDialog.dispose();
             }
         }
@@ -996,10 +1029,10 @@ public class Menus extends JFrame {
      * This class creates the How to play modal menu when the users click the "How to
      * Play" button from the main menu or the menu bar.
      */
-    public class HowToPlayBtnHandler implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-
+    public class HowToPlayBtnHandler implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
             createHowToPlayModal();
         }
     }
@@ -1010,12 +1043,12 @@ public class Menus extends JFrame {
     /**
      * This class closes the "How to Play" popup when the user clicks the close button.
      */
-    public class CloseHowToPlayBtnHandler implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-
-            if (howToPlayMenuOpen) {
-
+    public class CloseHowToPlayBtnHandler implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            if (howToPlayMenuOpen)
+            {
                 howToPlayDialog.dispose();
             }
         }
@@ -1028,10 +1061,10 @@ public class Menus extends JFrame {
      * This class creates the About  modal menu when the users click the "About" button
      * from the main menu or the menu bar.
      */
-    public class AboutBtnHandler implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-
+    public class AboutBtnHandler implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
             createAboutModal();
         }
     }
@@ -1042,12 +1075,12 @@ public class Menus extends JFrame {
     /**
      * This class closes the "About" popup when the user clicks the close button.
      */
-    public class CloseAboutBtnHandler implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-
-            if (aboutMenuOpen) {
-
+    public class CloseAboutBtnHandler implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            if (aboutMenuOpen)
+            {
                 aboutDialog.dispose();
             }
         }
@@ -1061,17 +1094,19 @@ public class Menus extends JFrame {
      * open. Otherwise the user must have clicked this button from the main menu, in
      * which case display the game board screen.
      */
-    public class ContinueGameBtnHandler implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-
-            if (inGameChoiceMenuOpen) {                                                 // If the modal is open we must be at the game screen.
-
+    public class ContinueGameBtnHandler implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            // If the modal is open we must be at the game screen.
+            if (inGameChoiceMenuOpen)
+            {
                 inGameMenuDialog.dispose();
-
-            } else {                                                                    // Otherwise we're at the main menu screen.
-
-                setMenuVisible(false);                                                  // So close the main menu.
+            }
+            else
+            {
+                // Otherwise we're at the main menu screen, so close the main menu.
+                setMenuVisible(false);
             }
         }
     }
@@ -1083,14 +1118,14 @@ public class Menus extends JFrame {
      * This class sets the confirmChoice variable to true when the user confirms their
      * choice of either starting a new game or quitting the program.
      */
-    public class ConfirmYesBtnHandler implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-
+    public class ConfirmYesBtnHandler implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
             confirmChoice = true;
 
-            if (choiceConfirmationMenuOpen) {
-
+            if (choiceConfirmationMenuOpen)
+            {
                 confirmDialog.dispose();
             }
         }
@@ -1103,14 +1138,14 @@ public class Menus extends JFrame {
      * This class sets the confirmChoice variable to false when the user cancels their
      * choice of either starting a new game or quitting the program.
      */
-    public class ConfirmNoBtnHandler implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-
+    public class ConfirmNoBtnHandler implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
             confirmChoice = false;
 
-            if (choiceConfirmationMenuOpen) {
-
+            if (choiceConfirmationMenuOpen)
+            {
                 confirmDialog.dispose();
             }
         }
@@ -1123,12 +1158,12 @@ public class Menus extends JFrame {
      * This class exits the program after the user has confirmed their choice of
      * wanting to quit the program.
      */
-    public class ExitBtnHandler implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-
-            if (getChoiceConfirmation()) {
-
+    public class ExitBtnHandler implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            if (getChoiceConfirmation())
+            {
                 System.exit(0);
             }
         }
@@ -1142,14 +1177,15 @@ public class Menus extends JFrame {
      * fields and stops the usr entering more than 11 characters per name. The value is
      * low because names have to fit in to the "Next Player" button and the scoreboard.
      */
-    public class NameLengthListener implements KeyListener {
-
+    public class NameLengthListener implements KeyListener
+    {
         @Override
-        public void keyTyped(KeyEvent e) {
-
+        public void keyTyped(KeyEvent e)
+        {
             JTextField textField = (JTextField) e.getSource();
 
-            if (textField.getText().length() > 9) {
+            if (textField.getText().length() > 9)
+            {
                 e.consume();
             }
         }

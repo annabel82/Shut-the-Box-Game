@@ -20,15 +20,14 @@ import javax.swing.*;
 
 
 @SuppressWarnings("serial")
-public class JLabelRotated extends JLabel {
-
-
+public class JLabelRotated extends JLabel
+{
     private Image     bg;
     private ImageIcon image;
     private int       degrees;
     private int       width;
     private int       height;
-    
+
 
     // ---------------------------------------------------------------------------------
     /**
@@ -40,14 +39,14 @@ public class JLabelRotated extends JLabel {
      * @param file    File name of the image to use
      * @param degrees Degrees of rotation to apply
      */
-    public void setIcon (String file, int degrees) {
-
-        try {
-
+    public void setIcon (String file, int degrees)
+    {
+        try
+        {
             bg = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("resources/imgs/" + file));
-
-        } catch (Exception e) {
-
+        }
+        catch (Exception e)
+        {
             JOptionPane.showMessageDialog (this, "File: resources/imgs/" + file + " failed to load:" + e + ".\n" +
                                                  "You may OK this message and continue at your own risk.",
                                                  "Error", JOptionPane.ERROR_MESSAGE);
@@ -55,12 +54,12 @@ public class JLabelRotated extends JLabel {
 
         // -----------------------------------------------------------
 
-        try {
-
+        try
+        {
             image = new ImageIcon(bg);
-
-        } catch (Exception e) {
-
+        }
+        catch (Exception e)
+        {
             JOptionPane.showMessageDialog (this, "File: resources/imgs/" + file + " failed to load:" + e + ".\n" +
                                                  "You may OK this message and continue at your own risk.",
                                                  "Error", JOptionPane.ERROR_MESSAGE);
@@ -68,23 +67,21 @@ public class JLabelRotated extends JLabel {
 
         // -----------------------------------------------------------
 
-        try {
-
-            width = image.getIconWidth() + 20;                                            // Add a little space for rotation
+        try
+        {
+            // Add a little space for rotation
+            width = image.getIconWidth() + 20;
             height = image.getIconHeight() + 20;
-
-        } catch (Exception e) {
-
+        }
+        catch (Exception e)
+        {
             JOptionPane.showMessageDialog (this, "File: resources/imgs/" + file +
                                                 " failed to load, so width and height of image could not be calculated:" + e + ".\n" +
                                                  "You may OK this message and continue at your own risk.",
                                                  "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        // -----------------------------------------------------------
-
         this.degrees = degrees;
-
         setPreferredSize(new Dimension(width, height));
     }
 
@@ -97,8 +94,8 @@ public class JLabelRotated extends JLabel {
      *
      * @param g Graphics component.
      */
-    public void paintComponent (Graphics g) {
-
+    public void paintComponent (Graphics g)
+    {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g;

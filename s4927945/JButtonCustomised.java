@@ -17,10 +17,8 @@ import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 
 @SuppressWarnings("serial")
-public class JButtonCustomised extends JButton {
-
-
-
+public class JButtonCustomised extends JButton
+{
     // ---------------------------------------------------------------------------------
     /**
      * Customises a JButton to suit our needs.
@@ -32,20 +30,18 @@ public class JButtonCustomised extends JButton {
      * @param   pressedFile     Image to show when the button is pressed
      * @param   disabledFile    Image to show when the button is disabled
      */
-    public JButtonCustomised(Font boxTxt, Color btnTxtColour, String label, String file, String pressedFile, String disabledFile) {
-
+    public JButtonCustomised(Font boxTxt, Color btnTxtColour, String label, String file, String pressedFile, String disabledFile)
+    {
         ImageIcon icon = null;
         ImageIcon pressedIcon = null;
         ImageIcon disabledIcon = null;
 
-        // -----------------------------------------------------------
-
-        try {
-
+        try
+        {
             icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("resources/imgs/" + file)));
-
-        } catch (Exception e) {
-
+        }
+        catch (Exception e)
+        {
             JOptionPane.showMessageDialog (this, "File: resources/imgs/" + file + " failed to load:" + e + ".\n" +
                                                  "You may OK this message and continue at your own risk.",
                                                  "Error", JOptionPane.ERROR_MESSAGE);
@@ -53,12 +49,12 @@ public class JButtonCustomised extends JButton {
 
         // -----------------------------------------------------------
 
-        try {
-
+        try
+        {
             pressedIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("resources/imgs/" + pressedFile)));
-
-        } catch (Exception e) {
-
+        }
+        catch (Exception e)
+        {
             JOptionPane.showMessageDialog (this, "File: resources/imgs/" + pressedFile + " failed to load:" + e + ".\n" +
                                                  "You may OK this message and continue at your own risk.",
                                                  "Error", JOptionPane.ERROR_MESSAGE);
@@ -66,18 +62,16 @@ public class JButtonCustomised extends JButton {
 
         // -----------------------------------------------------------
 
-        try {
-
+        try
+        {
             disabledIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("resources/imgs/" + disabledFile)));
-
-        } catch (Exception e) {
-
+        }
+        catch (Exception e)
+        {
             JOptionPane.showMessageDialog (this, "File: resources/imgs/" + disabledFile + " failed to load:" + e + ".\n" +
                                                  "You may OK this message and continue at your own risk.",
                                                  "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-        // -----------------------------------------------------------
 
         setFocusPainted(false);
         setContentAreaFilled(false);
@@ -105,20 +99,18 @@ public class JButtonCustomised extends JButton {
      * @param pressedFile  Image to show when the button is pressed
      * @param disabledFile Image to show when the button is disabled
      */
-    public JButtonCustomised(LayoutManager layout, String file, String pressedFile, String disabledFile) {
-
+    public JButtonCustomised(LayoutManager layout, String file, String pressedFile, String disabledFile)
+    {
         ImageIcon icon = null;
         ImageIcon pressedIcon = null;
         ImageIcon disabledIcon = null;
 
-        // -----------------------------------------------------------
-
-        try {
-
+        try
+        {
             icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("resources/imgs/" + file)));
-
-        } catch (Exception e) {
-
+        }
+        catch (Exception e)
+        {
             JOptionPane.showMessageDialog (this, "File: resources/imgs/" + file + " failed to load:" + e + ".\n" +
                                                  "You may OK this message and continue at your own risk.",
                                                  "Error", JOptionPane.ERROR_MESSAGE);
@@ -126,12 +118,12 @@ public class JButtonCustomised extends JButton {
 
         // -----------------------------------------------------------
 
-        try {
-
+        try
+        {
             pressedIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("resources/imgs/" + pressedFile)));
-
-        } catch (Exception e) {
-
+        }
+        catch (Exception e)
+        {
             JOptionPane.showMessageDialog (this, "File: resources/imgs/" + pressedFile + " failed to load:" + e + ".\n" +
                                                  "You may OK this message and continue at your own risk.",
                                                  "Error", JOptionPane.ERROR_MESSAGE);
@@ -139,18 +131,16 @@ public class JButtonCustomised extends JButton {
 
         // -----------------------------------------------------------
 
-        try {
-
+        try
+        {
             disabledIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("resources/imgs/" + disabledFile)));
-
-        } catch (Exception e) {
-
+        }
+        catch (Exception e)
+        {
             JOptionPane.showMessageDialog (this, "File: resources/imgs/" + disabledFile + " failed to load:" + e + ".\n" +
                                                  "You may OK this message and continue at your own risk.",
                                                  "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-        // -----------------------------------------------------------
 
         setLayout(layout);
         setFocusPainted(false);
@@ -175,14 +165,12 @@ public class JButtonCustomised extends JButton {
         ImageIcon icon = null;
         ImageIcon pressedIcon = null;
 
-        // -----------------------------------------------------------
-
-        try {
-
+        try
+        {
             icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("resources/imgs/" + file)));
-
-        } catch (Exception e) {
-
+        }
+        catch (Exception e)
+        {
             JOptionPane.showMessageDialog (this, "File: resources/imgs/" + file + " failed to load:" + e + ".\n" +
                     "You may OK this message and continue at your own risk.",
                 "Error", JOptionPane.ERROR_MESSAGE);
@@ -190,19 +178,17 @@ public class JButtonCustomised extends JButton {
 
         // -----------------------------------------------------------
 
-        try {
-
+        try
+        {
             pressedIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("resources/imgs/" + pressedFile)));
-
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
 
             JOptionPane.showMessageDialog (this, "File: resources/imgs/" + pressedFile + " failed to load:" + e + ".\n" +
                     "You may OK this message and continue at your own risk.",
                 "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-
-        // -----------------------------------------------------------
 
         setIcon(icon);
         setPressedIcon(pressedIcon);

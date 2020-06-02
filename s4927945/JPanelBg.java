@@ -19,17 +19,17 @@ import javax.swing.*;
 
 
 @SuppressWarnings("serial")
-public class JPanelBg extends JPanel {
-
+public class JPanelBg extends JPanel
+{
     private BufferedImage bg;
-
 
 
     // ---------------------------------------------------------------------------------
     /**
      * Base constructor class.
      */
-    public JPanelBg() {
+    public JPanelBg()
+    {
 
     }
 
@@ -43,12 +43,12 @@ public class JPanelBg extends JPanel {
      */
     public JPanelBg(String file) {
 
-        try {
-
+        try
+        {
             bg = ImageIO.read(getClass().getClassLoader().getResource("resources/imgs/" + file));
-
-        } catch (Exception e) {
-
+        }
+        catch (Exception e)
+        {
             JOptionPane.showMessageDialog (this, "File: resources/imgs/" + file + " failed to load:" + e + ".\n" +
                                                  "You may OK this message and continue at your own risk.",
                                                  "Error", JOptionPane.ERROR_MESSAGE);
@@ -65,12 +65,12 @@ public class JPanelBg extends JPanel {
      */
     public void setNewImage(String file) {
 
-        try {
-
+        try
+        {
             bg = ImageIO.read(getClass().getClassLoader().getResource("resources/imgs/" + file));
-
-        } catch (Exception e) {
-
+        }
+        catch (Exception e)
+        {
             JOptionPane.showMessageDialog (this, "File: resources/imgs/" + file + " failed to load:" + e + ".\n" +
                                                  "You may OK this message and continue at your own risk.",
                                                  "Error", JOptionPane.ERROR_MESSAGE);
@@ -87,8 +87,8 @@ public class JPanelBg extends JPanel {
      * @param g Graphics component.
      */
     @Override
-    public void paintComponent(Graphics g) {
-        
+    public void paintComponent(Graphics g)
+    {
         g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
     }
 }
