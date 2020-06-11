@@ -11,8 +11,8 @@ Wood effect images are modified incarnations of a base psd file courtesy of http
 "The Urban Way" Font is courtesy of original creator Vanessa Bays of http://bythebutterfly.com 
 
 
-![Main Menu](https://github.com/annabel82/shut-the-box/blob/master/screenshots/main-menu.png)
+![Main Menu](screenshots/main-menu.png)
 
-![Game Board](https://github.com/annabel82/shut-the-box/blob/master/screenshots/game-baord.png)
+![Game Board](screenshots/game-baord.png)
 
-![How To Play](https://github.com/annabel82/shut-the-box/blob/master/screenshots/how-to-play.png)
+![How To Play](screenshots/how-to-play.png)
